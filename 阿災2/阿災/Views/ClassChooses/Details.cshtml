@@ -1,0 +1,34 @@
+﻿@model 阿災.Models.ClassChoose
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClassChoose</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.classname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.classname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.classurl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.classurl)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
