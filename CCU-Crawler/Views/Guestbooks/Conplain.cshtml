@@ -1,0 +1,28 @@
+﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
+
+@{
+    ViewBag.Title = "Conplain";
+}
+
+<h2>Conplain</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <br>
+        課程評分 : @Html.TextBox("score")
+        <br>
+        課程評論 : @Html.TextArea("content")
+        <input type="submit" value="送出">
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
