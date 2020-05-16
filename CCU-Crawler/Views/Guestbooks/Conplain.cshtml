@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Conplain";
+    var temp = @TempData["id2"] ;
 }
 
 <h2>Conplain</h2>
@@ -10,17 +11,21 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <br>
-        課程評分 : @Html.TextBox("score")
-        <br>
-        課程評論 : @Html.TextArea("content")
-        <input type="submit" value="送出">
-    </div>
+<div class="form-horizontal">
+    <br>
+    課程評分 : 1 @Html.RadioButton("score", 1),2 @Html.RadioButton("score", 2),3 @Html.RadioButton("score", 3),4 @Html.RadioButton("score", 4),5 @Html.RadioButton("score", 5)
+    <br>
+    課程評論 :
+    <br>
+    @Html.TextArea("content")
+
+    <input type="hidden" id="classId" name="classId" value= @temp>
+    <input type="submit" value="送出">
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List", new { id = @TempData["id2"]})
 </div>
 
 @section Scripts {

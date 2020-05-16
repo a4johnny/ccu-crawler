@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -22,42 +23,44 @@ namespace CCU_Crawler.Controllers
 
         // GET: Guestbooks/Details/5
 
-        public ActionResult List(int? id)
+        public ActionResult List(int? id) // 
         {   
             if (id == null)
             {
                 return RedirectToAction("Index");
             }  
             Course course = db.Courses.Find(id);
-            TempData["name"] = course.Name;
-            TempData["teacher"] = course.Teacher;
-            TempData["remark"] = course.Remark;
-     
-            return View(db.Guestbooks.ToList());
+
+            TempData["id"] = id; 
+            ViewBag.name = course.Name;
+            ViewBag.teacher = course.Teacher;
+            ViewBag.remark = course.Remark;
+
+            return View(db.Guestbooks.Where(p => p.CourceId == id).ToList());
+        }
+
+        public ActionResult Conplain(int CourseId)
+        {
+            TempData["id2"] = CourseId;
+            //Debug.WriteLine(CourseId);
+
+            return View();
         }
 
         [HttpPost]
-        public ActionResult List(int score, string content)
-        {
+        public ActionResult Conplain(int classid, int score, string content)
+        {   
+            var idd = classid;
             Guestbook guestbook = new Guestbook();
+            guestbook.CourceId = Convert.ToInt32(idd.ToString());
             guestbook.Score = score;
             guestbook.Content = content;
             db.Guestbooks.Add(guestbook);
             db.SaveChanges();
 
-            return View();
+            return RedirectToAction("List", new { id = idd});
         }
 
-        public ActionResult Conplain(int score, string content)
-        {
-            Guestbook guestbook = new Guestbook();
-            guestbook.Score = score;
-            guestbook.Content = content;
-            db.Guestbooks.Add(guestbook);
-            db.SaveChanges();
-
-            return View();
-        }
 
         public ActionResult Details(int? id)
         {
