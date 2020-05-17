@@ -23,7 +23,7 @@ namespace CCU_Crawler.Controllers
 
         // GET: Guestbooks/Details/5
 
-        public ActionResult List(int? id) // 
+        public ActionResult List(int? id) // 列出選中的課程評論
         {   
             if (id == null)
             {
@@ -36,29 +36,27 @@ namespace CCU_Crawler.Controllers
             ViewBag.teacher = course.Teacher;
             ViewBag.remark = course.Remark;
 
-            return View(db.Guestbooks.Where(p => p.CourceId == id).ToList());
+            return View(db.Guestbooks.Where(p => p.CourceId == id).ToList()); //只顯示給該課程的評論
         }
 
-        public ActionResult Conplain(int CourseId)
+        public ActionResult Conplain(int CourseId) //給評論的地方
         {
-            TempData["id2"] = CourseId;
-            //Debug.WriteLine(CourseId);
-
+            TempData["id2"] = CourseId;  // 把傳過來的課程ID繼承下來
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Conplain(int classid, int score, string content)
+        [HttpPost] // 按下按鈕觸發後會到這裡
+        public ActionResult Conplain(int classid, int score, string content) // 傳入課程ID 給定的分數 評論內容
         {   
-            var idd = classid;
             Guestbook guestbook = new Guestbook();
-            guestbook.CourceId = Convert.ToInt32(idd.ToString());
+            //guestbook.CourceId = Convert.ToInt32(idd.ToString());  //idd被我殺了  保留寫法
+            guestbook.CourceId = classid;
             guestbook.Score = score;
             guestbook.Content = content;
             db.Guestbooks.Add(guestbook);
             db.SaveChanges();
 
-            return RedirectToAction("List", new { id = idd});
+            return RedirectToAction("List", new { id = classid});
         }
 
 
