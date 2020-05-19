@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+@*@Styles.Render("~/Content/css")*@  @*layout裡有寫就可以了*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div>
+    <br>
+    課程名稱 : @ViewBag.name
+    <br>
+    指導教授 : @ViewBag.teacher
+    <br>
+    課程註解 : @ViewBag.remark
+    <br>
+    <br>
+</div>
+
+<p>
+    @*css的放置位置在 content 資料夾內*@
+    @*然後到app_start 找 BundleConfig.cs 把新增的 css 加入*@
+    @*需要這個 @Styles.Render("~/Content/css") 不過有寫在layout上了 不必再寫一遍*@
+    @Html.ActionLink("我要評論", "Conplain", new { CourseId = @TempData["id"] }, new { @class = "link-button" })
+</p>
+}
+@*以下顯示內容可以再改  ui不確定*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Score)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateTime)
+    </td>
+</tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*@Styles.Render("~/Content/css")*@
+}
