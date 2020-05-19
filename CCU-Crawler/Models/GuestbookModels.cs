@@ -13,5 +13,6 @@ namespace CCU_Crawler.Models
         public int Score { get; set; }
         public string Content { get; set; }
         public int CourceId { get; set; }
+        public DateTime? DateTime { get; set; }
     }
 }

@@ -53,6 +53,7 @@ namespace CCU_Crawler.Controllers
             guestbook.CourceId = classid;
             guestbook.Score = score;
             guestbook.Content = content;
+            guestbook.DateTime = DateTime.Now;
             db.Guestbooks.Add(guestbook);
             db.SaveChanges();
 

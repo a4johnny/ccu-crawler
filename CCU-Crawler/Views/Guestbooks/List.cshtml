@@ -38,18 +38,24 @@
         <th>
             @Html.DisplayNameFor(model => model.Content)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Score)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Score)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateTime)
+    </td>
+</tr>
     }
 </table>
 
