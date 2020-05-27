@@ -12,12 +12,63 @@ namespace CCU_Crawler.Controllers
 {
     public class CourseSearchController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: CourseSearch
         public ActionResult Index()
         {
             return View(db.Courses.ToList());
+        }
+
+        public ActionResult Search(string departmentId, string grade, string name, string teacher)
+        {
+            List<Course> courses = new List<Course>();
+
+            if (departmentId != string.Empty)
+            {
+                var integerDepartmentId = int.Parse(departmentId);
+                courses = db.Courses.Where(course => course.DepartmentId == integerDepartmentId).ToList();
+            }
+
+            if (grade != string.Empty)
+            {
+                var integerGrade = int.Parse(grade);
+                if (courses.Count == 0)
+                {
+                    courses = db.Courses.Where(course => course.Grade == integerGrade).ToList();
+                }
+                else
+                {
+                    courses = courses.Where(course => course.Grade == integerGrade).ToList();
+                }
+            }
+
+            if (name != string.Empty)
+            {
+                System.Diagnostics.Debug.WriteLine(true);
+                if (courses.Count == 0)
+                {
+                    courses = db.Courses.Where(course => course.Name.Contains(name)).ToList();
+                }
+                else
+                {
+                    courses = courses.Where(course => course.Name.Contains(name)).ToList();
+                }
+            }
+
+            if (teacher != string.Empty)
+            {
+                if (courses.Count == 0)
+                {
+                    courses = db.Courses.Where(course => course.Teacher.Contains(teacher)).ToList();
+                }
+                else
+                {
+                    courses = courses.Where(course => course.Teacher.Contains(teacher)).ToList();
+                }
+            }
+
+            return View(courses);
         }
 
         // GET: CourseSearch/Details/5
