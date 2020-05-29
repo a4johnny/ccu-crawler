@@ -273,6 +273,7 @@
     <Content Include="Views\CourseSearch\Details.cshtml" />
     <Content Include="Views\CourseSearch\Edit.cshtml" />
     <Content Include="Views\CourseSearch\Index.cshtml" />
+    <Content Include="Views\CourseSearch\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
