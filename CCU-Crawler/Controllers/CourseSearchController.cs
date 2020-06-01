@@ -20,9 +20,13 @@ namespace CCU_Crawler.Controllers
                 var courses = new List<Course>();
                 if (!searchCourse.DepartmentName.IsNullOrWhiteSpace())
                 {
-                    var integerDepartmentId = db.Departments.Where(department => department.Name.Contains(searchCourse.DepartmentName)).FirstOrDefault().Id;
-                    courses = db.Courses.Where(course => course.DepartmentId == integerDepartmentId).ToList();
-                    Debug.WriteLine(courses.Count);
+                    var currentDepartment = db.Departments.Where(department => department.Name.Contains(searchCourse.DepartmentName)).FirstOrDefault();
+                    if (currentDepartment is object)
+                    {
+                        var integerDepartmentId = db.Departments.Where(department => department.Name.Contains(searchCourse.DepartmentName)).FirstOrDefault().Id;
+                        courses = db.Courses.Where(course => course.DepartmentId == integerDepartmentId).ToList();
+                        Debug.WriteLine(courses.Count);
+                    }
                 }
                 else
                 {
@@ -115,7 +119,7 @@ namespace CCU_Crawler.Controllers
         [HttpPost]
         public ActionResult Search([Bind(Include = "DepartmentName,Grade,Name,Teacher")] SearchCourse searchCourse)
         {
-            return View(searchCourse);
+            return RedirectToAction("Index", searchCourse);
         }
     }
 }

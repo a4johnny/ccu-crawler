@@ -6,11 +6,11 @@
 
 <h2>Search</h2>
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxlist" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal inner">
+    <form id="form0" class="form-horizontal inner">
         <hr />
         <label class="control-label">系所名稱：</label>
         @Html.EditorFor(model => model.DepartmentName)
@@ -21,8 +21,10 @@
         <label class="control-label">任教老師：</label>
         @Html.EditorFor(model => model.Teacher)
         <input type="submit" value="Search" class="btn btn-default" />
-    </div>
-    <div>
-        @Html.Action("Index", "CourseSearch", Model)
-    </div>
+        <hr />
+    </form>
 }
+
+<div id="ajaxlist">
+    @Html.Action("Index", "CourseSearch", Model)
+</div>
