@@ -56,7 +56,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DepartmentId)
+            @Html.ActionLink(item.Name, "../Guestbooks/List", new { id = item.Id })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Grade)

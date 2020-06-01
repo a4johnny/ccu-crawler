@@ -655,3 +655,4 @@ C:\Users\User\Source\Repos\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.
 C:\Users\User\Source\Repos\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CopyComplete
 C:\Users\User\Source\Repos\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.dll
 C:\Users\User\Source\Repos\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.pdb
+C:\git\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CoreCompileInputs.cache
