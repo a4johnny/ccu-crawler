@@ -788,3 +788,4 @@ C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.csp
 C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CopyComplete
 C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.dll
 C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.pdb
+C:\Users\a4\Desktop\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CoreCompileInputs.cache

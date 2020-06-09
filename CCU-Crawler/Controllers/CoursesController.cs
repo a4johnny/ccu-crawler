@@ -178,7 +178,8 @@ namespace CCU_Crawler.Controllers
                                         Location = courseInfo[9],
                                         Limit = int.Parse(courseInfo[10]),
                                         Url = courseInfo[11],
-                                        Remark = courseInfo[12]
+                                        Remark = courseInfo[12],
+                                        Popularity = 0      // 熱門度
                                     };
 
                                     if (course.Remark == "")// 備註為空 補上 none
@@ -248,7 +249,6 @@ namespace CCU_Crawler.Controllers
                                 i = 31;
                             }
                         }
-
                     }
                 }
             }

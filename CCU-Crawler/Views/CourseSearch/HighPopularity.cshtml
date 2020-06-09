@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CCU_Crawler.Models.Course>
+@{
+    ViewBag.Title = "HighPopularity";
+}
+
+<h2>Top 3 Recommend</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teacher)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Popularity)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.ActionLink(item.Name, "../Guestbooks/List", new { id = item.Id })
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Teacher)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Popularity)
+    </td>
+</tr>
+    }
+
+</table>
+

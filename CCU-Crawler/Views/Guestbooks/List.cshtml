@@ -11,16 +11,34 @@
 {
     @Html.AntiForgeryToken()
 
-<div>
-    <br>
-    課程名稱 : @ViewBag.name
-    <br>
-    指導教授 : @ViewBag.teacher
-    <br>
-    課程註解 : @ViewBag.remark
-    <br>
-    <br>
-</div>
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <td class="col-lg-1">
+                課程名稱 :
+            </td>
+            <td class="col-lg-7">
+                @ViewBag.name
+            </td>
+        <tr>
+    </thead>
+        <tr>
+            <td>
+                指導教授 :
+            </td>
+            <td>
+                @ViewBag.teacher
+            </td>
+        <tr>
+        <tr>
+            <td>
+                課程註解 :
+            </td>
+            <td>
+                @ViewBag.remark
+            </td>
+        <tr>
+</table>
 
 <p>
     @*css的放置位置在 content 資料夾內*@
