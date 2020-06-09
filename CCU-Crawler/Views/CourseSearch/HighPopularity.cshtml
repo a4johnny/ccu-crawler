@@ -5,9 +5,9 @@
 
 <h2>Top 3 Recommend</h2>
 
-<table class="table">
+<table class="table table-bordered table-sm">
     <tr>
-        <th>
+        <th style="width:400px">
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -21,7 +21,7 @@
     @foreach (var item in Model)
     {
 <tr>
-    <td>
+    <td style="width:400px">
         @Html.ActionLink(item.Name, "../Guestbooks/List", new { id = item.Id })
     </td>
     <td>
