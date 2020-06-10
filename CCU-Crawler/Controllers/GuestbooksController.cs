@@ -28,13 +28,16 @@ namespace CCU_Crawler.Controllers
             if (id == null)
             {
                 return RedirectToAction("Index");
-            }  
+            }
             Course course = db.Courses.Find(id);
 
             TempData["id"] = id; 
             ViewBag.name = course.Name;
             ViewBag.teacher = course.Teacher;
             ViewBag.remark = course.Remark;
+
+            course.Popularity = db.Guestbooks.Where(p => p.CourceId == id).ToList().Count(); //初始化資料庫用 可刪除
+            db.SaveChanges();                                                                //同上
 
             return View(db.Guestbooks.Where(p => p.CourceId == id).ToList()); //只顯示給該課程的評論
         }
@@ -55,11 +58,14 @@ namespace CCU_Crawler.Controllers
             guestbook.Content = content;
             guestbook.DateTime = DateTime.Now;
             db.Guestbooks.Add(guestbook);
+
+            Course course = db.Courses.Find(classid);
+            course.Popularity ++;
+
             db.SaveChanges();
 
             return RedirectToAction("List", new { id = classid});
         }
-
 
         public ActionResult Details(int? id)
         {

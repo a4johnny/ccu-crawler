@@ -21,6 +21,7 @@ namespace CCU_Crawler.Models
         public int Limit { get; set; }
         public string Url { get; set; }
         public string Remark { get; set; }
+        public int Popularity { get; set; }
     }
     public class SearchCourse
     {
