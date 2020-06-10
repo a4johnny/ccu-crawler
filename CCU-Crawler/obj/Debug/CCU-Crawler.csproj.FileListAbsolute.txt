@@ -788,6 +788,7 @@ C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.csp
 C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CopyComplete
 C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.dll
 C:\Users\skzer\OneDrive\桌面\ccu-crawler\CCU-Crawler\obj\Debug\CCU-Crawler.pdb
+<<<<<<< HEAD
 C:\Users\yyian\Source\Repos\ccu-crawler5\CCU-Crawler\bin\CCU-Crawler.dll.config
 C:\Users\yyian\Source\Repos\ccu-crawler5\CCU-Crawler\bin\CCU-Crawler.dll
 C:\Users\yyian\Source\Repos\ccu-crawler5\CCU-Crawler\bin\CCU-Crawler.pdb
@@ -1070,3 +1071,6 @@ C:\git\CCU-Crawler\bin\System.Web.Http.WebHost.dll
 C:\git\CCU-Crawler\bin\System.Net.Http.Formatting.xml
 C:\git\CCU-Crawler\bin\System.Web.Http.xml
 C:\git\CCU-Crawler\bin\System.Web.Http.WebHost.xml
+=======
+C:\Users\a4\Desktop\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CoreCompileInputs.cache
+>>>>>>> FinalFunction
