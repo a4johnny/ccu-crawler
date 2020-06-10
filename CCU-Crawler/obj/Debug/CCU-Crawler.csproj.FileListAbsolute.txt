@@ -1064,9 +1064,3 @@ C:\Users\yyian\Source\Repos\ccu-crawler5\CCU-Crawler\obj\Debug\CCU-Crawler.pdb
 \\140.123.97.92\Users\使用者\Desktop\308-Shared\ccu-crawler5\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CopyComplete
 \\140.123.97.92\Users\使用者\Desktop\308-Shared\ccu-crawler5\CCU-Crawler\obj\Debug\CCU-Crawler.dll
 \\140.123.97.92\Users\使用者\Desktop\308-Shared\ccu-crawler5\CCU-Crawler\obj\Debug\CCU-Crawler.pdb
-C:\git\CCU-Crawler\bin\System.Net.Http.Formatting.dll
-C:\git\CCU-Crawler\bin\System.Web.Http.dll
-C:\git\CCU-Crawler\bin\System.Web.Http.WebHost.dll
-C:\git\CCU-Crawler\bin\System.Net.Http.Formatting.xml
-C:\git\CCU-Crawler\bin\System.Web.Http.xml
-C:\git\CCU-Crawler\bin\System.Web.Http.WebHost.xml
