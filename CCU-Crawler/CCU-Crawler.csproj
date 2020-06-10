@@ -208,7 +208,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
+
     <Content Include="Content\Chart.css" />
     <Content Include="Content\Chart.min.css" />
     <Content Include="Content\guestbooklist.css" />
@@ -346,7 +346,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
+
     <TypeScriptCompile Include="Content\guestbooklist.ts" />
 =======
     <TypeScriptCompile Include="Scripts\index.d.ts" />
