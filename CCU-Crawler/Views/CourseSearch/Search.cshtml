@@ -6,6 +6,10 @@
 
 <h2>Search</h2>
 
+<p>
+    @Html.Action("HighPopularity")
+</p>
+
 @using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxlist" }))
 {
     @Html.AntiForgeryToken()

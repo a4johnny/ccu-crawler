@@ -11,19 +11,20 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <br>
+    <br>
+    <div class="navbar navbar-inverse" style="width:280px;height:70px">
         @*radiobutton 點點 (傳給controller的參數名稱,value)*@
-        課程評分 :@Html.RadioButton("score", 1)1 @Html.RadioButton("score", 2)2 @Html.RadioButton("score", 3)3 @Html.RadioButton("score", 4)4 @Html.RadioButton("score", 5) 5
-        <br>
-        課程評論 :
-        <br>
-        @Html.TextArea("content")
-
-        @*把課程id傳回去 again*@
-        <input type="hidden" id="classId" name="classId" value=@temp>
-        <input type="submit" value="送出">
+        <h4 style="color:white">課程評分 :</h4>  <h4 style="color:white">@Html.RadioButton("score", 1, new { type = "checkbox" }) 1 @Html.RadioButton("score", 2, new { type = "checkbox" }) 2 @Html.RadioButton("score", 3, new { type = "checkbox" }) 3 @Html.RadioButton("score", 4, new { type = "checkbox" }) 4 @Html.RadioButton("score", 5, new { type = "checkbox" }) 5</h4>
     </div>
+
+    <h4>課程評論 :</h4>
+    @*@Html.TextArea("content", new { @class = "resizer" })*@
+    @Html.TextArea("content", new { cols = "60", rows = "5" })
+
+    @*把課程id傳回去 again*@
+    <input type="hidden" id="classId" name="classId" value=@temp>
+    <input type="submit" value="送出">
+
 }
 
 @*回去 list*@
@@ -33,4 +34,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")  @*//使用 checkbox.js*@
 }

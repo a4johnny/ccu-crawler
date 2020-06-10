@@ -36,6 +36,9 @@ namespace CCU_Crawler.Controllers
             ViewBag.teacher = course.Teacher;
             ViewBag.remark = course.Remark;
 
+            course.Popularity = db.Guestbooks.Where(p => p.CourceId == id).ToList().Count(); //初始化資料庫用 可刪除
+            db.SaveChanges();                                                                //同上
+
             return View(db.Guestbooks.Where(p => p.CourceId == id).ToList()); //只顯示給該課程的評論
         }
 
@@ -47,7 +50,7 @@ namespace CCU_Crawler.Controllers
 
         [HttpPost] // 按下按鈕觸發後會到這裡
         public ActionResult Conplain(int classid, int score, string content) // 傳入課程ID 給定的分數 評論內容
-        {   
+        {
             Guestbook guestbook = new Guestbook();
             //guestbook.CourceId = Convert.ToInt32(idd.ToString());  //idd被我殺了  保留寫法
             guestbook.CourceId = classid;
@@ -55,9 +58,13 @@ namespace CCU_Crawler.Controllers
             guestbook.Content = content;
             guestbook.DateTime = DateTime.Now;
             db.Guestbooks.Add(guestbook);
+
+            Course course = db.Courses.Find(classid);
+            course.Popularity++;
+
             db.SaveChanges();
 
-            return RedirectToAction("List", new { id = classid});
+            return RedirectToAction("List", new { id = classid });
         }
 
 
