@@ -25,20 +25,51 @@
             function getRandom(x) {
                 return Math.floor(Math.random() * x);
             };
-            var vote0 = getRandom(5);
-            var vote1 = getRandom(5);
-            var vote2 = getRandom(5);
-            var vote3 = getRandom(5);
-            var vote4 = getRandom(5);
-            var vote5 = getRandom(5);
+       
 
-            var myChart_bar = new Chart(ctx, {
+
+            @{
+                var vote0 = 0;
+                var vote1 = 0;
+                var vote2 = 0;
+                var vote3 = 0;
+                var vote4 = 0;
+                var vote5 = 0;
+
+                foreach (var model in Model)
+                {
+                    switch (model.Score)
+                    {
+                        case 0:
+                            vote0++;
+                            break;
+                        case 1:
+                            vote1++;
+                            break;
+                        case 2:
+                            vote2++;
+                            break;
+                        case 3:
+                            vote3++;
+                            break;
+                        case 4:
+                            vote4++;
+                            break;
+                        case 5:
+                            vote5++;
+                            break;
+                    }
+                }
+}
+            
+
+                        var myChart_bar = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['0分', '1分', '2分', '3分', '4分', '5分'],
+                        labels: ['0分', '1分', '2分', '3分', '4分', '5分'],
                     datasets: [{
-                        label: '# of Votes',
-                        data: [vote0, vote1, vote2, vote3, vote4, vote5],
+                            label: '# of Votes',
+                        data: [@vote0, @vote1, @vote2, @vote3, @vote4, @vote5],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -59,24 +90,24 @@
                     }]
                 },
                 options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                                }]
                     }
-                }
-            });
+                        }
+                    });
 
-            var ctx = document.getElementById('myChart_pie').getContext('2d');
-            var myChart_pie = new Chart(ctx, {
+                    var ctx = document.getElementById('myChart_pie').getContext('2d');
+                    var myChart_pie = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['0分', '1分', '2分', '3分', '4分', '5分'],
                     datasets: [{
                         label: '# of Votes',
-                        data: [vote0, vote1, vote2, vote3, vote4, vote5],
+                        data: [@vote0, @vote1, @vote2, @vote3, @vote4, @vote5],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -98,9 +129,9 @@
                         labels: {
                             fontColor: 'black',
                         }
+                        }
                     }
-                }
-            });
+                });
 
         </script>
     }

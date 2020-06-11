@@ -23,7 +23,7 @@ class guestbooklistView {
     public Update() {
         //   console.log(e[0].Score);
         this.Model.Guestbooklist.forEach((value, index, Array) => {
-            console.log('index[' + index + ']:' + value.Score);
+            console.log('index[' + index + ']: ' + value.Score + ', ' + value.CourceId);
         });
 
     }

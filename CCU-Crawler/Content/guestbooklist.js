@@ -20,7 +20,7 @@ var guestbooklistView = /** @class */ (function () {
     guestbooklistView.prototype.Update = function () {
         //   console.log(e[0].Score);
         this.Model.Guestbooklist.forEach(function (value, index, Array) {
-            console.log('index[' + index + ']:' + value.Score);
+            console.log('index[' + index + ']: ' + value.Score + ', ' + value.CourceId);
         });
     };
     return guestbooklistView;
