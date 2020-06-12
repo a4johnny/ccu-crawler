@@ -103,32 +103,7 @@ namespace CCU_Crawler.Controllers
                                          Popularity = course.Popularity
                                      }).ToList();
                 ViewData["OrderType"] = searchCourse.OrderType;
-                switch (searchCourse.OrderType)
-                {
-                    case 0:
-                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
-                        break;
-                    case 1:
-                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList();
-                        break;
-                    case 2:
-                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Credit).ToList();
-                        break;
-                    case -1:
-                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Popularity).ToList();
-                        break;
-                    case -2:
-                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.CourseName.Length).ToList();
-                        break;
-                    case -3:
-                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Credit).ToList();
-                        break;
-                    default:
-                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
-                        break;
-
-                }
-                return PartialView(coursesToView);
+                return PartialView(CourseToViewOrder(coursesToView, searchCourse.OrderType));
             }
             else
             {
@@ -155,28 +130,7 @@ namespace CCU_Crawler.Controllers
                                          Url = course.Url,
                                          Remark = course.Remark
                                      }).ToList();
-                switch (searchCourse.OrderType)
-                {
-                    case 0:
-                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
-                        break;
-                    case 1:
-                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList();
-                        break;
-                    case 2:
-                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Credit).ToList();
-                        break;
-                    case -1:
-                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Popularity).ToList();
-                        break;
-                    case -2:
-                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.CourseName.Length).ToList();
-                        break;
-                    case -3:
-                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Credit).ToList();
-                        break;
-                }
-                return PartialView(coursesToView);
+                return PartialView(CourseToViewOrder(coursesToView, searchCourse.OrderType));
             }
         }
 
@@ -190,18 +144,23 @@ namespace CCU_Crawler.Controllers
         {
             return RedirectToAction("Index", searchCourse);
         }
-
-        public ActionResult HighPopularity()
+        private List<CourseToView> CourseToViewOrder(List<CourseToView> coursesToView, int orderType)
         {
-            var CommentList = new List<Course>();
-            CommentList = db.Courses.Where(p => p.Popularity > 0)
-                                    .OrderByDescending(x => x.Popularity)
-                                    .ToList();
-                                    //.GetRange(0, 3);
-            if (CommentList.Count > 2)
-                CommentList = CommentList.GetRange(0, 3);
-            //CommentList = CommentList.GetRange(0, 3).ToList();
-            return PartialView(CommentList);
+            switch (orderType)
+            {
+                case 1:
+                    return coursesToView.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList();
+                case 2:
+                    return coursesToView.OrderByDescending(courseToView => courseToView.Credit).ToList();
+                case -1:
+                    return coursesToView.OrderBy(courseToView => courseToView.Popularity).ToList();
+                case -2:
+                    return coursesToView.OrderBy(courseToView => courseToView.CourseName.Length).ToList();
+                case -3:
+                    return coursesToView.OrderBy(courseToView => courseToView.Credit).ToList();
+                default:
+                    return coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
+            }
         }
     }
 }
