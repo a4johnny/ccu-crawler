@@ -20,6 +20,7 @@ namespace CCU_Crawler.Controllers
                 var courses = new List<Course>();
                 if (!searchCourse.DepartmentName.IsNullOrWhiteSpace())
                 {
+                    ViewData["DepartmentName"] = searchCourse.DepartmentName;
                     var currentDepartment = db.Departments.Where(department => department.Name.Contains(searchCourse.DepartmentName)).FirstOrDefault();
                     if (currentDepartment is object)
                     {
@@ -30,10 +31,12 @@ namespace CCU_Crawler.Controllers
                 }
                 else
                 {
+                    ViewData["DepartmentName"] = "";
                     courses = db.Courses.ToList();
                 }
                 if (!searchCourse.Grade.IsNullOrWhiteSpace() && searchCourse.Grade != string.Empty)
                 {
+                    ViewData["Grade"] = searchCourse.Grade;
                     var integerGrade = int.Parse(searchCourse.Grade);
                     if (courses.Count == 0)
                     {
@@ -44,8 +47,13 @@ namespace CCU_Crawler.Controllers
                         courses = courses.Where(course => course.Grade == integerGrade).ToList();
                     }
                 }
+                else
+                {
+                    ViewData["Grade"] = "";
+                }
                 if (!searchCourse.Name.IsNullOrWhiteSpace() && searchCourse.Name != string.Empty)
                 {
+                    ViewData["Name"] = searchCourse.Name;
                     if (courses.Count == 0)
                     {
                         courses = db.Courses.Where(course => course.Name.Contains(searchCourse.Name)).ToList();
@@ -55,8 +63,13 @@ namespace CCU_Crawler.Controllers
                         courses = courses.Where(course => course.Name.Contains(searchCourse.Name)).ToList();
                     }
                 }
+                else
+                {
+                    ViewData["Name"] = "";
+                }
                 if (!searchCourse.Teacher.IsNullOrWhiteSpace() && searchCourse.Teacher != string.Empty)
                 {
+                    ViewData["Teacher"] = searchCourse.Teacher;
                     if (courses.Count == 0)
                     {
                         courses = db.Courses.Where(course => course.Teacher.Contains(searchCourse.Teacher)).ToList();
@@ -65,6 +78,10 @@ namespace CCU_Crawler.Controllers
                     {
                         courses = courses.Where(course => course.Teacher.Contains(searchCourse.Teacher)).ToList();
                     }
+                }
+                else
+                {
+                    ViewData["Teacher"] = "";
                 }
                 var coursesToView = (from course in courses
                                      join department in db.Departments on course.DepartmentId equals department.Id
@@ -82,12 +99,43 @@ namespace CCU_Crawler.Controllers
                                          Location = course.Location,
                                          Limit = course.Limit,
                                          Url = course.Url,
-                                         Remark = course.Remark
+                                         Remark = course.Remark,
+                                         Popularity = course.Popularity
                                      }).ToList();
+                ViewData["OrderType"] = searchCourse.OrderType;
+                switch (searchCourse.OrderType)
+                {
+                    case 0:
+                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
+                        break;
+                    case 1:
+                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList();
+                        break;
+                    case 2:
+                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Credit).ToList();
+                        break;
+                    case -1:
+                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Popularity).ToList();
+                        break;
+                    case -2:
+                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.CourseName.Length).ToList();
+                        break;
+                    case -3:
+                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Credit).ToList();
+                        break;
+                    default:
+                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
+                        break;
+
+                }
                 return PartialView(coursesToView);
             }
             else
             {
+                ViewData["DepartmentName"] = "";
+                ViewData["Grade"] = "";
+                ViewData["Name"] = "";
+                ViewData["Teacher"] = "";
                 var courses = db.Courses.ToList();
                 var coursesToView = (from course in courses
                                      join department in db.Departments on course.DepartmentId equals department.Id
@@ -107,6 +155,27 @@ namespace CCU_Crawler.Controllers
                                          Url = course.Url,
                                          Remark = course.Remark
                                      }).ToList();
+                switch (searchCourse.OrderType)
+                {
+                    case 0:
+                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
+                        break;
+                    case 1:
+                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList();
+                        break;
+                    case 2:
+                        coursesToView = coursesToView.OrderByDescending(courseToView => courseToView.Credit).ToList();
+                        break;
+                    case -1:
+                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Popularity).ToList();
+                        break;
+                    case -2:
+                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.CourseName.Length).ToList();
+                        break;
+                    case -3:
+                        coursesToView = coursesToView.OrderBy(courseToView => courseToView.Credit).ToList();
+                        break;
+                }
                 return PartialView(coursesToView);
             }
         }
