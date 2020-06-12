@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
 
 @{
-    ViewBag.Title = "Conplaint";
+    ViewBag.Title = "Conplain";
     var temp = @TempData["id2"];  //暫存課程id
 }
 
-<h2 style="font-family:consolas,Microsoft JhengHei;">我要評論</h2>
+<h1><b>我要評論</b></h1>
 
 @using (Html.BeginForm())
 {
@@ -30,7 +30,7 @@
 
 @*回去 list*@
 <div style="font-family:Microsoft JhengHei;">
-    @Html.ActionLink("回到前頁", "List", new { id = @TempData["id2"] })
+    @Html.ActionLink("回到<課程資訊>", "List", new { id = @TempData["id2"] })
 </div>
 
 @section Scripts {

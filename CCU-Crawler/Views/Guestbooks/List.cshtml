@@ -4,7 +4,7 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h1><b>課程資訊</b></h1>
 @*@Styles.Render("~/Content/css")*@  @*layout裡有寫就可以了*@
 
 @using (Html.BeginForm())
@@ -204,7 +204,7 @@
 </table>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("回到<課程檢索>", "Search", "CourseSearch")
 </div>
 
 
