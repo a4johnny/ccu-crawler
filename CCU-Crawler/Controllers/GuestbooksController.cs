@@ -49,10 +49,6 @@ namespace CCU_Crawler.Controllers
         }
 
         [HttpPost] // 按下按鈕觸發後會到這裡
-<<<<<<< HEAD
-        public ActionResult Conplain(int classid, int score, string content) // 傳入課程ID 給定的分數 評論內容
-        {
-=======
         public ActionResult Conplain(int classid, int? score, string content, int? call, int? sign, int? group) // 傳入課程ID 給定的分數 評論內容
         {
             TempData["warning"] = null;
@@ -61,7 +57,6 @@ namespace CCU_Crawler.Controllers
                 return RedirectToAction("Conplain", new { CourseId = classid });
             }
 
->>>>>>> FinalFunction
             Guestbook guestbook = new Guestbook();
             //guestbook.CourceId = Convert.ToInt32(idd.ToString());  //idd被我殺了  保留寫法
             guestbook.CourceId = classid;
