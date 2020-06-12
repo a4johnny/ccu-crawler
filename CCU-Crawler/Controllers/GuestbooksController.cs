@@ -49,13 +49,45 @@ namespace CCU_Crawler.Controllers
         }
 
         [HttpPost] // 按下按鈕觸發後會到這裡
+<<<<<<< HEAD
         public ActionResult Conplain(int classid, int score, string content) // 傳入課程ID 給定的分數 評論內容
         {
+=======
+        public ActionResult Conplain(int classid, int? score, string content, int? call, int? sign, int? group) // 傳入課程ID 給定的分數 評論內容
+        {
+            TempData["warning"] = null;
+            if (score == null) {
+                TempData["warning"] = "評分不可為空值";
+                return RedirectToAction("Conplain", new { CourseId = classid });
+            }
+
+>>>>>>> FinalFunction
             Guestbook guestbook = new Guestbook();
             //guestbook.CourceId = Convert.ToInt32(idd.ToString());  //idd被我殺了  保留寫法
             guestbook.CourceId = classid;
-            guestbook.Score = score;
+            guestbook.Score = (int)score;
             guestbook.Content = content;
+            guestbook.Call = call;
+            guestbook.Sign = sign;
+            guestbook.Group = group;
+
+            if (call == 1)
+                guestbook.Infomation = guestbook.Infomation + "時常點名 ";
+            else if (call == 2)
+                guestbook.Infomation = guestbook.Infomation + "偶爾點名 ";
+            else if (call == 3)
+                guestbook.Infomation = guestbook.Infomation + "不需點名 ";
+
+            if(sign == 1)
+                guestbook.Infomation = guestbook.Infomation + "無條件加簽 ";
+            else if (sign == 2)
+                guestbook.Infomation = guestbook.Infomation + "有條件加簽 ";
+            else if (sign == 3)
+                guestbook.Infomation = guestbook.Infomation + "不可加簽 ";
+
+            if (group == 1)
+                guestbook.Infomation = guestbook.Infomation + "需要分組";
+
             guestbook.DateTime = DateTime.Now;
             db.Guestbooks.Add(guestbook);
 
