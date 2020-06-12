@@ -20,18 +20,17 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td style="width:400px">
-        @Html.ActionLink(item.Name, "../Guestbooks/List", new { id = item.Id })
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Teacher)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Popularity)
-    </td>
-</tr>
+        <tr>
+            <td style="width:400px">
+                @Html.ActionLink(item.Name, "../Guestbooks/List", new { id = item.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Popularity)
+            </td>
+        </tr>
     }
 
 </table>
-

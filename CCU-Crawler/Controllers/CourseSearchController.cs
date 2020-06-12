@@ -124,11 +124,13 @@ namespace CCU_Crawler.Controllers
 
         public ActionResult HighPopularity()
         {
-            var CommentList = new List<Course> ();
+            var CommentList = new List<Course>();
             CommentList = db.Courses.Where(p => p.Popularity > 0)
                                     .OrderByDescending(x => x.Popularity)
-                                    .ToList()
-                                    .GetRange(0,3);
+                                    .ToList();
+                                    //.GetRange(0, 3);
+            if (CommentList.Count > 2)
+                CommentList = CommentList.GetRange(0, 3);
             //CommentList = CommentList.GetRange(0, 3).ToList();
             return PartialView(CommentList);
         }
