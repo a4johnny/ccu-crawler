@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: Consolas,"Microsoft JhengHei";
+    font-size: 16px; /*這行不寫的話字體是14px*/
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -20,5 +22,5 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 169px;/*原本是字體14px,文字框280px*/
 }

@@ -4,7 +4,7 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
+<h1><b>課程檢索</b></h1>
 
 <p>
     @Html.Action("HighPopularity")
@@ -24,7 +24,7 @@
         @Html.EditorFor(model => model.Name)
         <label class="control-label">任教老師：</label>
         @Html.EditorFor(model => model.Teacher)
-        <input type="submit" value="Search" class="btn btn-default" />
+        <input type="submit" value="按此搜尋" class="btn btn-default" />
         <hr />
     </form>
 }
