@@ -29,6 +29,7 @@ namespace CCU_Crawler.Models
         public string Grade { get; set; }
         public string Name { get; set; }
         public string Teacher { get; set; }
+        public int OrderType { get; set; }
     }
     public class CourseToView
     {
@@ -53,5 +54,7 @@ namespace CCU_Crawler.Models
         public int Limit { get; set; }
         public string Url { get; set; }
         public string Remark { get; set; }
+        [DisplayName("熱門")]
+        public int Popularity { get; set; }
     }
 }
