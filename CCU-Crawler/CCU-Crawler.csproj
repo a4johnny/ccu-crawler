@@ -188,6 +188,7 @@
     <Compile Include="Controllers\CourseSearchController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\GuestbooksController.cs" />
+    <Compile Include="Controllers\GuestbooksSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,7 +292,8 @@
     <Content Include="Views\Guestbooks\Conplain.cshtml" />
     <Content Include="Views\CourseSearch\Index.cshtml" />
     <Content Include="Views\CourseSearch\Search.cshtml" />
-    <Content Include="Views\CourseSearch\HighPopularity.cshtml" />
+    <Content Include="Views\GuestbooksSearch\Index.cshtml" />
+    <Content Include="Views\GuestbooksSearch\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
