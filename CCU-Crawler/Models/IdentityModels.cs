@@ -35,5 +35,7 @@ namespace CCU_Crawler.Models
         public System.Data.Entity.DbSet<CCU_Crawler.Models.Course> Courses { get; set; }
 
         public System.Data.Entity.DbSet<CCU_Crawler.Models.Guestbook> Guestbooks { get; set; }
+
+        public System.Data.Entity.DbSet<CCU_Crawler.Models.Comment> Comments { get; set; }
     }
 }

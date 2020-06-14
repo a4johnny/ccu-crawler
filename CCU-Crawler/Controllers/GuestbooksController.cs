@@ -42,6 +42,39 @@ namespace CCU_Crawler.Controllers
             return View(db.Guestbooks.Where(p => p.CourceId == id).ToList()); //只顯示給該課程的評論
         }
 
+        [HttpPost]
+        public ActionResult List(int CourseId, int CommentId, string action) //給評論的地方
+        {
+            Comment comment = new Comment();
+            comment.CourseId = CourseId;
+            comment.CommentId = CommentId;
+            if (action == "讚")
+            {
+                comment.GoodOrBad = 1;
+            }
+            else if (action == "評論Bad")
+            {
+                comment.GoodOrBad = 0;
+            }
+
+            if (User.Identity.Name != null && User.Identity.Name != "")
+                comment.User = User.Identity.Name;
+            else
+                comment.User = "stranger";
+
+            Guestbook guestbook = new Guestbook();
+            guestbook = db.Guestbooks.Where(x => x.Id == CommentId).FirstOrDefault();
+            if (comment.GoodOrBad == 1)
+                guestbook.good++;
+            else if (comment.GoodOrBad == 0)
+                guestbook.bad++;
+
+            db.Comments.Add(comment);
+            db.SaveChanges();
+
+            return RedirectToAction("List", new { id = CourseId });
+        }
+
         public ActionResult Conplain(int CourseId) //給評論的地方
         {
             TempData["id2"] = CourseId;  // 把傳過來的課程ID繼承下來
@@ -82,6 +115,9 @@ namespace CCU_Crawler.Controllers
 
             if (group == 1)
                 guestbook.Infomation = guestbook.Infomation + "需要分組";
+
+            guestbook.good = 0;
+            guestbook.bad = 0;
 
             guestbook.DateTime = DateTime.Now;
             db.Guestbooks.Add(guestbook);
