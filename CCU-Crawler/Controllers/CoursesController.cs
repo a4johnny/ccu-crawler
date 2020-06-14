@@ -160,7 +160,7 @@ namespace CCU_Crawler.Controllers
                                 }
                                 //Console.WriteLine(a1 + a2 + a3 + a4);
 
-                                if (!CheckNameExist(courseNames, courseInfo[3]))
+                                if (!CheckNameExist(courseNames, courseInfo[3], index, courseInfo[4]))
                                 {
                                     var course = new Course
                                     {
@@ -211,8 +211,8 @@ namespace CCU_Crawler.Controllers
                                     */
                                     db.Courses.Add(course);
                                     db.SaveChanges();
-                                    courseIndex++;
                                 }
+                                courseIndex++;
                             }
                         }
                     }
@@ -410,13 +410,24 @@ namespace CCU_Crawler.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CheckNameExist(List<string> courseNames, string courseName)
+        private bool CheckNameExist(List<string> courseNames, string courseName, int departmantId, string courseTeacher)
         {
             foreach (var name in courseNames)
             {
                 if (courseName == name)
                 {
-                    return true;
+                    var courses = db.Courses.Where(course => course.Name == courseName).ToList();
+                    foreach (var course in courses)
+                    {
+                        if (course.Teacher != courseTeacher || course.DepartmentId != departmantId)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
             return false;
