@@ -4,55 +4,53 @@
     ViewBag.Title = "Index";
 }
 
-<table class="table">
+<table class="table table-bordered table-sm">
     <tr>
-        <th>
+        <th width="120px">
             @Html.DisplayNameFor(model => model.DepartmentName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Grade)
+            @Ajax.ActionLink("課程名稱", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
+            {
+                DepartmentName = ViewData["DepartmentName"] as string,
+                Grade = ViewData["Grade"] as string,
+                Name = ViewData["Name"] as string,
+                Teacher = ViewData["Teacher"] as string,
+                OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1
+            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseName)
-        </th>
-        <th>
+        <th width="75px">
             @Html.DisplayNameFor(model => model.Teacher)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
+        <th width="45px">
+            @Ajax.ActionLink("學分", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
+            {
+                DepartmentName = ViewData["DepartmentName"] as string,
+                Grade = ViewData["Grade"] as string,
+                Name = ViewData["Name"] as string,
+                Teacher = ViewData["Teacher"] as string,
+                OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2
+            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Credit)
-        </th>
-        <th>
+        <th width="60px">
             @Html.DisplayNameFor(model => model.Type)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Time)
+        <th width="45px">
+            @Ajax.ActionLink("熱門", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
+            {
+                DepartmentName = ViewData["DepartmentName"] as string,
+                Grade = ViewData["Grade"] as string,
+                Name = ViewData["Name"] as string,
+                Teacher = ViewData["Teacher"] as string,
+                OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0
+            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Limit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Url)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remark)
-        </th>
-        <th></th>
     </tr>
-
     @foreach (var item in Model)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.DepartmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grade)
             </td>
             <td>
                 @Html.ActionLink(item.CourseName, "../Guestbooks/List", new { id = item.Id })
@@ -61,30 +59,14 @@
                 @Html.DisplayFor(modelItem => item.Teacher)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Credit)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Limit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Url)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remark)
+                @Html.DisplayFor(modelItem => item.Popularity)
             </td>
         </tr>
     }
-
 </table>

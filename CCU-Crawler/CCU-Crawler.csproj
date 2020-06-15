@@ -184,10 +184,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\CourseSearchController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\GuestbooksController.cs" />
+    <Compile Include="Controllers\GuestbooksSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -199,6 +201,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CommentModels.cs" />
     <Compile Include="Models\CourseModels.cs" />
     <Compile Include="Models\DepartmentModels.cs" />
     <Compile Include="Models\GuestbookModels.cs" />
@@ -291,10 +294,12 @@
     <Content Include="Views\Guestbooks\Conplain.cshtml" />
     <Content Include="Views\CourseSearch\Index.cshtml" />
     <Content Include="Views\CourseSearch\Search.cshtml" />
-    <Content Include="Views\CourseSearch\HighPopularity.cshtml" />
+    <Content Include="Views\GuestbooksSearch\Index.cshtml" />
+    <Content Include="Views\GuestbooksSearch\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Comments\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

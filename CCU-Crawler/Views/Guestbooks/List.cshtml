@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
+﻿
+@model IEnumerable<CCU_Crawler.Models.Guestbook>
 
 @{
     //ViewBag.Title = "List";
@@ -185,6 +186,8 @@
         <th>
             @Html.DisplayNameFor(model => model.DateTime)
         </th>
+        <th>
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -199,6 +202,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateTime)
             </td>
+
+            <td>
+                @using (Html.BeginForm())
+                {
+                    <input type="hidden" value=@TempData["id"] name="CourseId">
+                    <input type="hidden" value=@item.Id name="CommentId">
+                    <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
+                    <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
+                }
+            </td>
+
         </tr>
     }
 </table>
