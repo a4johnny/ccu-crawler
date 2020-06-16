@@ -353,6 +353,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap_1css_1map__JsonSchema="https://json.schemastore.org/swagger-2.0" content_4bootstrap-theme_1min_1css_1map__JsonSchema="https://json.schemastore.org/stylelintrc" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

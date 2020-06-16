@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CCU-Crawler"
+    "\\CCU-Crawler",
+    "\\CCU-Crawler\\Views",
+    "\\CCU-Crawler\\Views\\Shared"
   ],
+  "SelectedNode": "\\CCU-Crawler\\CCU-Crawler.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -7,14 +7,15 @@
     cursor: pointer;
     position: relative;
     text-align: center;
+    vertical-align:middle;
     display: inline-block;
-    background-color: Green;
-    border: 1px solid Lime;
+    background-color: white;
+    border: 100px solid Lime;
 }
 
-a.link-button {
+/*a.link-button {
     color: White;
-}
+}*/
 
 /*.link-button {
     -moz-border-radius: 0.333em 0.333em 0.333em 0.333em;
@@ -25,7 +26,6 @@ a.link-button {
     border-width: 1px;
     color: white;
     cursor: pointer;
-    display: inline-block;
     font-size: 1.167em;
     font-weight: bold;
     line-height: 1.429em;
@@ -60,4 +60,5 @@ a.link-button {
         background: #dddddd url(../images/old-browsers-bg/button-element-grey-active-bg.png) repeat-x top;
         background: -moz-linear-gradient( top, #f1f1f1, #dddddd );
         background: -webkit-gradient( linear, left top, left bottom, from(#f1f1f1), to(#dddddd) );
-    }*/
+    }
+*/

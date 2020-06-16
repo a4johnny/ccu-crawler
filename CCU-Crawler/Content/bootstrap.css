@@ -251,6 +251,10 @@ th {
   .label {
     border: 1px solid #000;
   }
+
+  /******************/
+  /*table 表格在這邊*/
+  /******************/
   .table {
     border-collapse: collapse !important;
   }
@@ -2414,18 +2418,18 @@ th {
 .table-bordered {
   border: 1px solid #ddd;
 }
+
+/*表格的框框粗細度, 樣式, 顏色*/
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
 .table-bordered > tfoot > tr > th,
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #ddd;
+    border: 1px solid #ddd;
+    border-bottom-width: 1px; /*表格下框的粗細度*/
 }
-.table-bordered > thead > tr > th,
-.table-bordered > thead > tr > td {
-  border-bottom-width: 2px;
-}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
@@ -2537,12 +2541,12 @@ th {
 .table-hover > tbody > tr.danger:hover > th {
   background-color: #ebcccc;
 }
-.table-responsive {
-  min-height: 0.01%;
+/*.table-responsive {*/ /*刪掉沒反應*/
+  /*min-height: 0.01%;
   overflow-x: auto;
 }
-@media screen and (max-width: 767px) {
-  .table-responsive {
+@media screen and (max-width: 767px) {*/ /*刪掉沒反應*/
+  /*.table-responsive {
     width: 100%;
     margin-bottom: 15px;
     overflow-y: hidden;
@@ -2585,7 +2589,7 @@ th {
   .table-responsive > .table-bordered > tfoot > tr:last-child > td {
     border-bottom: 0;
   }
-}
+}*/
 fieldset {
   min-width: 0;
   padding: 0;
@@ -4348,65 +4352,58 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-radius: 0;
   }
 }
+
+/************************/
+/*navbar menu 導覽列樣式*/
+/************************/
 .navbar-brand {
-  float: left;
-  height: 50px;
-  padding: 15px 15px;
-  font-size: 18px;
-  line-height: 20px;
+  float: left; /*不知道, 我猜是項目從左開始排列*/
+  height: 50px; /*導覽列有多高*/
+  padding: 15px 15px; /*導覽列每個項目與上下、左右的距離*/
+  font-size: 18px; /*導覽列字體大小*/
+  line-height: 25px; /*距離上方多少px*/
 }
 .navbar-brand:hover,
-.navbar-brand:focus {
+.navbar-brand:focus { /*刪掉沒反應*/
   text-decoration: none;
 }
-.navbar-brand > img {
+.navbar-brand > img { /*刪掉沒反應*/
   display: block;
 }
-@media (min-width: 768px) {
+@media (min-width: 768px) { /*不知道*/
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
   }
 }
-.navbar-toggle {
-  position: relative;
-  float: right;
-  padding: 9px 10px;
-  margin-right: 15px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  background-color: transparent;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+
+/*.navbar-toggle:focus {*/ /*刪掉沒反應*/
+  /*outline: 0;
 }
-.navbar-toggle:focus {
-  outline: 0;
-}
-.navbar-toggle .icon-bar {
-  display: block;
+.navbar-toggle .icon-bar {*/ /*刪掉沒反應*/
+  /*display: block;
   width: 22px;
   height: 2px;
   border-radius: 1px;
 }
-.navbar-toggle .icon-bar + .icon-bar {
-  margin-top: 4px;
-}
-@media (min-width: 768px) {
+.navbar-toggle .icon-bar + .icon-bar {*/ /*刪掉沒反應*/
+  /*margin-top: 4px;
+}*/
+@media (min-width: 768px) { /*把導覽列的滾輪隱藏起來*/
   .navbar-toggle {
     display: none;
   }
 }
-.navbar-nav {
-  margin: 7.5px -15px;
-}
-.navbar-nav > li > a {
-  padding-top: 10px;
+/*.navbar-nav {*/ /*刪掉沒反應*/
+  /*margin: 7.5px -15px;
+}*/
+/*.navbar-nav > li > a {*/ /*刪掉沒反應*/
+  /*padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
-}
-@media (max-width: 767px) {
-  .navbar-nav .open .dropdown-menu {
+}*/
+/*@media (max-width: 767px) {*/ /*刪掉沒反應*/
+  /*.navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
     width: auto;
@@ -4427,22 +4424,22 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-nav .open .dropdown-menu > li > a:focus {
     background-image: none;
   }
-}
+}*/
 @media (min-width: 768px) {
-  .navbar-nav {
-    float: left;
+  /*.navbar-nav {*/ /*刪掉沒反應*/
+    /*float: left;
     margin: 0;
-  }
-  .navbar-nav > li {
+  }*/
+.navbar-nav > li { /*跟導覽列有關*/
     float: left;
-  }
-  .navbar-nav > li > a {
+}
+.navbar-nav > li > a { /*跟導覽列有關*/
     padding-top: 15px;
     padding-bottom: 15px;
-  }
 }
-.navbar-form {
-  padding: 10px 15px;
+}
+/*.navbar-form {*/ /*刪掉沒反應*/
+  /*padding: 10px 15px;
   margin-right: -15px;
   margin-left: -15px;
   border-top: 1px solid transparent;
@@ -4451,9 +4448,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 8px;
   margin-bottom: 8px;
-}
-@media (min-width: 768px) {
-  .navbar-form .form-group {
+}*/
+/*@media (min-width: 768px) {*/ /*刪掉沒反應*/
+  /*.navbar-form .form-group {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -4521,96 +4518,96 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-}
-.navbar-nav > li > .dropdown-menu {
+}*/
+/*.navbar-nav > li > .dropdown-menu {
   margin-top: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-}
-.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
+}*/
+/*.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
   margin-bottom: 0;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-}
-.navbar-btn {
+}*/
+/*.navbar-btn {
   margin-top: 8px;
   margin-bottom: 8px;
-}
-.navbar-btn.btn-sm {
+}*/
+/*.navbar-btn.btn-sm {
   margin-top: 10px;
   margin-bottom: 10px;
-}
-.navbar-btn.btn-xs {
+}*/
+/*.navbar-btn.btn-xs {
   margin-top: 14px;
   margin-bottom: 14px;
-}
-.navbar-text {
+}*/
+/*.navbar-text {
   margin-top: 15px;
   margin-bottom: 15px;
-}
-@media (min-width: 768px) {
+}*/
+/*@media (min-width: 768px) {
   .navbar-text {
     float: left;
     margin-right: 15px;
     margin-left: 15px;
   }
-}
-@media (min-width: 768px) {
-  .navbar-left {
+}*/
+@media (min-width: 768px) { /*跟導覽列有關*/
+/*  .navbar-left {
     float: left !important;
-  }
+  }*/
   .navbar-right {
     float: right !important;
     margin-right: -15px;
   }
-  .navbar-right ~ .navbar-right {
+/*  .navbar-right ~ .navbar-right {
     margin-right: 0;
-  }
+  }*/
 }
-.navbar-default {
+/*.navbar-default {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
-}
-.navbar-default .navbar-brand {
+}*/
+/*.navbar-default .navbar-brand {
   color: #777;
-}
-.navbar-default .navbar-brand:hover,
+}*/
+/*.navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #5e5e5e;
   background-color: transparent;
-}
-.navbar-default .navbar-text {
+}*/
+/*.navbar-default .navbar-text {
   color: #777;
-}
-.navbar-default .navbar-nav > li > a {
+}*/
+/*.navbar-default .navbar-nav > li > a {
   color: #777;
-}
-.navbar-default .navbar-nav > li > a:hover,
+}*/
+/*.navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #333;
   background-color: transparent;
-}
-.navbar-default .navbar-nav > .active > a,
+}*/
+/*.navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #555;
   background-color: #e7e7e7;
-}
-.navbar-default .navbar-nav > .disabled > a,
+}*/
+/*.navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus {
   color: #ccc;
   background-color: transparent;
-}
-.navbar-default .navbar-nav > .open > a,
+}*/
+/*.navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   color: #555;
   background-color: #e7e7e7;
-}
-@media (max-width: 767px) {
+}*/
+/*@media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777;
   }
@@ -4631,8 +4628,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     color: #ccc;
     background-color: transparent;
   }
-}
-.navbar-default .navbar-toggle {
+}*/
+/*.navbar-default .navbar-toggle {
   border-color: #ddd;
 }
 .navbar-default .navbar-toggle:hover,
@@ -4658,18 +4655,18 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
   color: #333;
-}
-.navbar-default .btn-link[disabled]:hover,
+}*/
+/*.navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
 .navbar-default .btn-link[disabled]:focus,
 fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
+}*/
+.navbar-inverse { /*導覽列的底色*/
+    background-color: #222; /*原本是#222想改成#fba09d*/
+    border-color: #080808; /*原本是#080808想改成#f8928f*/
 }
-.navbar-inverse {
-  background-color: #222;
-  border-color: #080808;
-}
-.navbar-inverse .navbar-brand {
+.navbar-inverse .navbar-brand { /*導覽列字體的顏色*/
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-brand:hover,
@@ -4680,7 +4677,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-text {
   color: #9d9d9d;
 }
-.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav > li > a { /*導覽列字體的顏色*/
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -5524,7 +5521,7 @@ button.list-group-item-danger.active:focus {
   margin-bottom: 0;
   line-height: 1.3;
 }
-.panel {
+/*.panel { 整串刪掉沒反應
   margin-bottom: 20px;
   background-color: #fff;
   border: 1px solid transparent;
@@ -5866,7 +5863,7 @@ button.list-group-item-danger.active:focus {
 }
 .panel-danger > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ebccd1;
-}
+}*/
 .embed-responsive {
   position: relative;
   display: block;

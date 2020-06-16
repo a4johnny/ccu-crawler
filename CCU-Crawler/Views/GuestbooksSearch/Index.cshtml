@@ -6,13 +6,13 @@
 
 <table class="table table-bordered table-sm">
     <tr>
-        <th width="200px">
+        <th width="200px" style="text-align: center; vertical-align: middle">
             @Html.DisplayNameFor(model => model.DateTime)
         </th>
-        <th>
+        <th style="text-align: center; vertical-align: middle">
             @Html.DisplayNameFor(model => model.Content)
         </th>
-        <th width="75px">
+        <th width="90px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("課程評分", "../GuestbooksSearch/Index", new CCU_Crawler.Models.SearchGuestbook
             {
                 Keyword = ViewData["Keyword"] as string,
@@ -23,7 +23,7 @@
                 OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th width="70px">
+        <th width="90px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("常點名?", "../GuestbooksSearch/Index", new CCU_Crawler.Models.SearchGuestbook
             {
                 Keyword = ViewData["Keyword"] as string,
@@ -34,7 +34,7 @@
                 OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th width="70px">
+        <th width="90px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("給加簽?", "../GuestbooksSearch/Index", new CCU_Crawler.Models.SearchGuestbook
             {
                 Keyword = ViewData["Keyword"] as string,
@@ -45,7 +45,7 @@
                 OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th width="70px">
+        <th width="90px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("要分組?", "../GuestbooksSearch/Index", new CCU_Crawler.Models.SearchGuestbook
             {
                 Keyword = ViewData["Keyword"] as string,
@@ -60,22 +60,22 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.DateTime)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Score)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Call)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Sign)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Group)
             </td>
         </tr>
