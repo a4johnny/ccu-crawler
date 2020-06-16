@@ -6,10 +6,10 @@
 
 <table class="table table-bordered table-sm">
     <tr>
-        <th width="120px">
+        <th width="180px" style="text-align: center; vertical-align: middle">
             @Html.DisplayNameFor(model => model.DepartmentName)
         </th>
-        <th>
+        <th style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("課程名稱", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
             {
                 DepartmentName = ViewData["DepartmentName"] as string,
@@ -19,10 +19,10 @@
                 OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th width="75px">
+        <th width="85px" style="text-align: center; vertical-align: middle">
             @Html.DisplayNameFor(model => model.Teacher)
         </th>
-        <th width="45px">
+        <th width="50px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("學分", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
             {
                 DepartmentName = ViewData["DepartmentName"] as string,
@@ -32,10 +32,10 @@
                 OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
-        <th width="60px">
+        <th width="60px" style="text-align: center; vertical-align: middle">
             @Html.DisplayNameFor(model => model.Type)
         </th>
-        <th width="45px">
+        <th width="50px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("熱門", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
             {
                 DepartmentName = ViewData["DepartmentName"] as string,
@@ -49,22 +49,22 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.DepartmentName)
             </td>
-            <td>
-                @Html.ActionLink(item.CourseName, "../Guestbooks/List", new { id = item.Id })
+            <td style="vertical-align: middle">
+                @Html.ActionLink(item.CourseName, "../Guestbooks/List", new { id = item.Id }, new { @class = "my-class" })
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Teacher)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Credit)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
-            <td>
+            <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Popularity)
             </td>
         </tr>

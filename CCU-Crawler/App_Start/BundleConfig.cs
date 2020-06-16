@@ -26,8 +26,9 @@ namespace CCU_Crawler
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/link-button.css"));
+                      "~/Content/Site.css",
+                      "~/Content/skel-noscript.css", //怡嫣加的CSS
+                      "~/Content/fonts.css")); //怡嫣加的CSS
         }
     }
 }
