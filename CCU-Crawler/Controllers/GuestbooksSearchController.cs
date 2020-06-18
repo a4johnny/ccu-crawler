@@ -15,8 +15,16 @@ namespace CCU_Crawler.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: GuestbooksSearch
-        public ActionResult Index(SearchGuestbook searchGuestbook)
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Index([Bind(Include = "Keyword,Score,Call,Sign,Group")] SearchGuestbook searchGuestbook)
+        {
+            return RedirectToAction("Search", searchGuestbook);
+        }
+        public ActionResult Search(SearchGuestbook searchGuestbook)
         {
             if (searchGuestbook is object)
             {
@@ -111,15 +119,6 @@ namespace CCU_Crawler.Controllers
                 ViewData["Group"] = "";
                 return PartialView(GuestbooksOrder(db.Guestbooks.ToList(), searchGuestbook.OrderType));
             }
-        }
-        public ActionResult Search()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Search([Bind(Include = "Keyword,Score,Call,Sign,Group")] SearchGuestbook searchGuestbook)
-        {
-            return RedirectToAction("Index", searchGuestbook);
         }
         private List<Guestbook> GuestbooksOrder(List<Guestbook> guestbooks, int orderType)
         {

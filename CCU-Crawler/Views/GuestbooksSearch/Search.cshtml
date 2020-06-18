@@ -1,25 +1,83 @@
-﻿@model CCU_Crawler.Models.SearchGuestbook
+﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
 
 @{
     ViewBag.Title = "Search";
 }
 
-<h1><b>留言檢索</b></h1>
-@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxlist" }))
-{
-    @Html.AntiForgeryToken()
-
-    <form id="form0" class="form-horizontal inner">
-        <hr />
-        <label class="control-label">關鍵字：</label>
-        @Html.EditorFor(model => model.Keyword)
-        <label class="control-label">分數：</label>
-        @Html.EditorFor(model => model.Score)
-        <input type="submit" value="按此搜尋" class="btn btn-default" />
-        <hr />
-    </form>
-}
-
-<div id="ajaxlist">
-    @Html.Action("Index", "GuestbooksSearch", Model)
-</div>
+<table class="table table-bordered table-sm">
+    <tr>
+        <th width="200px" style="text-align: center; vertical-align: middle">
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th width="90px" style="text-align: center; vertical-align: middle">
+            @Ajax.ActionLink("課程評分", "../GuestbooksSearch/Search", new CCU_Crawler.Models.SearchGuestbook
+            {
+                Keyword = ViewData["Keyword"] as string,
+                Score = ViewData["Score"] as string,
+                Call = ViewData["Call"] as string,
+                Sign = ViewData["Sign"] as string,
+                Group = ViewData["Group"] as string,
+                OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0
+            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
+        </th>
+        <th width="90px" style="text-align: center; vertical-align: middle">
+            @Ajax.ActionLink("常點名?", "../GuestbooksSearch/Search", new CCU_Crawler.Models.SearchGuestbook
+            {
+                Keyword = ViewData["Keyword"] as string,
+                Score = ViewData["Score"] as string,
+                Call = ViewData["Call"] as string,
+                Sign = ViewData["Sign"] as string,
+                Group = ViewData["Group"] as string,
+                OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1
+            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
+        </th>
+        <th width="90px" style="text-align: center; vertical-align: middle">
+            @Ajax.ActionLink("給加簽?", "../GuestbooksSearch/Search", new CCU_Crawler.Models.SearchGuestbook
+            {
+                Keyword = ViewData["Keyword"] as string,
+                Score = ViewData["Score"] as string,
+                Call = ViewData["Call"] as string,
+                Sign = ViewData["Sign"] as string,
+                Group = ViewData["Group"] as string,
+                OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2
+            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
+        </th>
+        <th width="90px" style="text-align: center; vertical-align: middle">
+            @Ajax.ActionLink("要分組?", "../GuestbooksSearch/Search", new CCU_Crawler.Models.SearchGuestbook
+            {
+                Keyword = ViewData["Keyword"] as string,
+                Score = ViewData["Score"] as string,
+                Call = ViewData["Call"] as string,
+                Sign = ViewData["Sign"] as string,
+                Group = ViewData["Group"] as string,
+                OrderType = (int)ViewData["OrderType"] == 3 ? -4 : 3
+            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align: center; vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Call)
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Sign)
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Group)
+            </td>
+        </tr>
+    }
+</table>
