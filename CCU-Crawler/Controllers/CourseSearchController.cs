@@ -5,22 +5,43 @@ using System.Linq;
 using System.Web.Mvc;
 using CCU_Crawler.Models;
 using Microsoft.Ajax.Utilities;
+using PagedList;
 
 namespace CCU_Crawler.Controllers
 {
     public class CourseSearchController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
-
-        public ActionResult Index()
+        private SearchCourse lastSearchSetting;
+        private const int PAGE_SIZE = 20;
+        public ActionResult Index(int? page)
         {
+            ViewData["Page"] = page == null ? 1 : page;
             return View();
         }
-
+        [HttpPost]
+        public ActionResult Index([Bind(Include = "DepartmentName,Grade,Name,Teacher")] SearchCourse searchCourse)
+        {
+            ViewData["Page"] = searchCourse is object ? searchCourse.Page : 1;
+            return RedirectToAction("Search", searchCourse);
+        }
+        public ActionResult PageList(SearchCourse searchCourse)
+        {
+            return PartialView(searchCourse);
+        }
         public ActionResult Search(SearchCourse searchCourse)
         {
             if (searchCourse is object)
             {
+                if (lastSearchSetting is object)
+                {
+                    if (searchCourse.DepartmentName != lastSearchSetting.DepartmentName || searchCourse.Grade != lastSearchSetting.Grade || searchCourse.Name != lastSearchSetting.Name)
+                    {
+                        searchCourse.Page = 1;
+                    }
+                }
+                lastSearchSetting = searchCourse;
+                searchCourse.Page = searchCourse.Page == 0 ? 1 : searchCourse.Page;
                 var courses = new List<Course>();
                 if (!searchCourse.DepartmentName.IsNullOrWhiteSpace())
                 {
@@ -30,7 +51,6 @@ namespace CCU_Crawler.Controllers
                     {
                         var integerDepartmentId = db.Departments.Where(department => department.Name.Contains(searchCourse.DepartmentName)).FirstOrDefault().Id;
                         courses = db.Courses.Where(course => course.DepartmentId == integerDepartmentId).ToList();
-                        Debug.WriteLine(courses.Count);
                     }
                 }
                 else
@@ -89,7 +109,7 @@ namespace CCU_Crawler.Controllers
                 }
                 var coursesToView = (from course in courses
                                      join department in db.Departments on course.DepartmentId equals department.Id
-                                     select new CourseToView()
+                                     select new JointSearchCourse()
                                      {
                                          Id = course.Id,
                                          DepartmentName = department.Name,
@@ -107,7 +127,9 @@ namespace CCU_Crawler.Controllers
                                          Popularity = course.Popularity
                                      }).ToList();
                 ViewData["OrderType"] = searchCourse.OrderType;
-                return PartialView(CourseToViewOrder(coursesToView, searchCourse.OrderType));
+                ViewData["Page"] = searchCourse.Page;
+                Debug.WriteLine(searchCourse.Page);
+                return PartialView(CourseToViewOrder(coursesToView.ToPagedList(searchCourse.Page, PAGE_SIZE).ToList(), searchCourse));
             }
             else
             {
@@ -115,10 +137,11 @@ namespace CCU_Crawler.Controllers
                 ViewData["Grade"] = "";
                 ViewData["Name"] = "";
                 ViewData["Teacher"] = "";
+                ViewData["Page"] = 1;
                 var courses = db.Courses.ToList();
                 var coursesToView = (from course in courses
                                      join department in db.Departments on course.DepartmentId equals department.Id
-                                     select new CourseToView()
+                                     select new JointSearchCourse()
                                      {
                                          Id = course.Id,
                                          DepartmentName = department.Name,
@@ -134,31 +157,50 @@ namespace CCU_Crawler.Controllers
                                          Url = course.Url,
                                          Remark = course.Remark
                                      }).ToList();
-                return PartialView(CourseToViewOrder(coursesToView, searchCourse.OrderType));
+                return PartialView(CourseToViewOrder(coursesToView.ToPagedList(1, PAGE_SIZE).ToList(), searchCourse));
             }
         }
-
-        [HttpPost]
-        public ActionResult Index([Bind(Include = "DepartmentName,Grade,Name,Teacher")] SearchCourse searchCourse)
+        private JointSearchCourseToView CourseToViewOrder(List<JointSearchCourse> jointSearchCourseList, SearchCourse searchCourse)
         {
-            return RedirectToAction("Search", searchCourse);
-        }
-        private List<CourseToView> CourseToViewOrder(List<CourseToView> coursesToView, int orderType)
-        {
-            switch (orderType)
+            Debug.WriteLine(jointSearchCourseList.Count);
+            switch (searchCourse.OrderType)
             {
                 case 1:
-                    return coursesToView.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList();
+                    return new JointSearchCourseToView
+                    {
+                        JointSearchCourseList = jointSearchCourseList.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList(),
+                        SearchCourse = searchCourse
+                    };
                 case 2:
-                    return coursesToView.OrderByDescending(courseToView => courseToView.Credit).ToList();
+                    return new JointSearchCourseToView
+                    {
+                        JointSearchCourseList = jointSearchCourseList.OrderByDescending(courseToView => courseToView.Credit).ToList(),
+                        SearchCourse = searchCourse
+                    };
                 case -1:
-                    return coursesToView.OrderBy(courseToView => courseToView.Popularity).ToList();
+                    return new JointSearchCourseToView
+                    {
+                        JointSearchCourseList = jointSearchCourseList.OrderBy(courseToView => courseToView.Popularity).ToList(),
+                        SearchCourse = searchCourse
+                    };
                 case -2:
-                    return coursesToView.OrderBy(courseToView => courseToView.CourseName.Length).ToList();
+                    return new JointSearchCourseToView
+                    {
+                        JointSearchCourseList = jointSearchCourseList.OrderBy(courseToView => courseToView.CourseName.Length).ToList(),
+                        SearchCourse = searchCourse
+                    };
                 case -3:
-                    return coursesToView.OrderBy(courseToView => courseToView.Credit).ToList();
+                    return new JointSearchCourseToView
+                    {
+                        JointSearchCourseList = jointSearchCourseList.OrderBy(courseToView => courseToView.Credit).ToList(),
+                        SearchCourse = searchCourse
+                    };
                 default:
-                    return coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
+                    return new JointSearchCourseToView
+                    {
+                        JointSearchCourseList = jointSearchCourseList.OrderByDescending(courseToView => courseToView.Popularity).ToList(),
+                        SearchCourse = searchCourse
+                    };
             }
         }
     }

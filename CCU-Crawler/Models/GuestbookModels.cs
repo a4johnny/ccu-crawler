@@ -31,5 +31,11 @@ namespace CCU_Crawler.Models
         public string Sign { get; set; }
         public string Group { get; set; }
         public int OrderType { get; set; }
+        public int Page { get; set; }
+    }
+    public class GuestbookToView
+    {
+        public List<Guestbook> GuestbookList { get; set; }
+        public SearchGuestbook SearchGuestbook { get; set; }
     }
 }

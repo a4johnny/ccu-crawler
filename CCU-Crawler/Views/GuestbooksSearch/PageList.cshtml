@@ -1,0 +1,25 @@
+﻿@model CCU_Crawler.Models.SearchGuestbook
+
+@{
+    ViewBag.Title = "PageList";
+}
+
+<div class="text-center">
+    @if (Model is object && Model.Page <= 5)
+    {
+        for (var page = 1; page < 11; page++)
+        {
+            Model.Page = page;
+            @Html.ActionLink("　" + page.ToString() + "　", "Index", "GuestbooksSearch", Model, null)
+        }
+    }
+    else
+    {
+        var count = Model.Page + 5;
+        for (var page = Model.Page - 4; page < count; page++)
+        {
+            Model.Page = page;
+            @Html.ActionLink("　" + page.ToString() + "　", "Index", "GuestbooksSearch", Model, null)
+        }
+    }
+</div>

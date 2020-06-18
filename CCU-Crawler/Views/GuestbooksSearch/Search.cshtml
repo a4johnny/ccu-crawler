@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
+﻿@model CCU_Crawler.Models.GuestbookToView
 
 @{
     ViewBag.Title = "Search";
@@ -7,10 +7,10 @@
 <table class="table table-bordered table-sm">
     <tr>
         <th width="200px" style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.DateTime)
+            @Html.DisplayName("日期")
         </th>
         <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Content)
+            @Html.DisplayName("內容")
         </th>
         <th width="90px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("課程評分", "../GuestbooksSearch/Search", new CCU_Crawler.Models.SearchGuestbook
@@ -20,7 +20,8 @@
                 Call = ViewData["Call"] as string,
                 Sign = ViewData["Sign"] as string,
                 Group = ViewData["Group"] as string,
-                OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0
+                OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0,
+                Page = ViewData["Page"] is object ? (int)ViewData["Page"] : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
         <th width="90px" style="text-align: center; vertical-align: middle">
@@ -31,7 +32,8 @@
                 Call = ViewData["Call"] as string,
                 Sign = ViewData["Sign"] as string,
                 Group = ViewData["Group"] as string,
-                OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1
+                OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1,
+                Page = ViewData["Page"] is object ? (int)ViewData["Page"] : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
         <th width="90px" style="text-align: center; vertical-align: middle">
@@ -42,7 +44,8 @@
                 Call = ViewData["Call"] as string,
                 Sign = ViewData["Sign"] as string,
                 Group = ViewData["Group"] as string,
-                OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2
+                OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2,
+                Page = ViewData["Page"] is object ? (int)ViewData["Page"] : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
         <th width="90px" style="text-align: center; vertical-align: middle">
@@ -53,11 +56,12 @@
                 Call = ViewData["Call"] as string,
                 Sign = ViewData["Sign"] as string,
                 Group = ViewData["Group"] as string,
-                OrderType = (int)ViewData["OrderType"] == 3 ? -4 : 3
+                OrderType = (int)ViewData["OrderType"] == 3 ? -4 : 3,
+                Page = ViewData["Page"] is object ? (int)ViewData["Page"] : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.GuestbookList)
     {
         <tr>
             <td style="text-align: center; vertical-align: middle">
@@ -81,3 +85,4 @@
         </tr>
     }
 </table>
+@Html.Action("PageList", "GuestbooksSearch", Model.SearchGuestbook)

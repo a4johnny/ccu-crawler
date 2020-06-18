@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CCU_Crawler.Models.CourseToView>
+﻿@model CCU_Crawler.Models.JointSearchCourseToView
 
 @{
     ViewBag.Title = "Search";
@@ -7,7 +7,7 @@
 <table class="table table-bordered table-sm">
     <tr>
         <th width="180px" style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.DepartmentName)
+            @Html.DisplayName("系所")
         </th>
         <th style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("課程名稱", "../CourseSearch/Search", new CCU_Crawler.Models.SearchCourse
@@ -16,11 +16,12 @@
                 Grade = ViewData["Grade"] as string,
                 Name = ViewData["Name"] as string,
                 Teacher = ViewData["Teacher"] as string,
-                OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1
+                OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1,
+                Page = ViewData["Page"] is object ? (int)ViewData["Page"] : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
         <th width="85px" style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Teacher)
+            @Html.DisplayName("任教老師")
         </th>
         <th width="50px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("學分", "../CourseSearch/Search", new CCU_Crawler.Models.SearchCourse
@@ -29,11 +30,12 @@
                 Grade = ViewData["Grade"] as string,
                 Name = ViewData["Name"] as string,
                 Teacher = ViewData["Teacher"] as string,
-                OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2
+                OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2,
+                Page = ViewData["Page"] is object ? (int)ViewData["Page"] : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
         <th width="60px" style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayName("必/選")
         </th>
         <th width="50px" style="text-align: center; vertical-align: middle">
             @Ajax.ActionLink("熱門", "../CourseSearch/Search", new CCU_Crawler.Models.SearchCourse
@@ -42,11 +44,12 @@
                 Grade = ViewData["Grade"] as string,
                 Name = ViewData["Name"] as string,
                 Teacher = ViewData["Teacher"] as string,
-                OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0
+                OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0,
+                Page = ViewData["Page"] is object ? (int)ViewData["Page"] : 1
             }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.JointSearchCourseList)
     {
         <tr>
             <td style="text-align: center; vertical-align: middle">
@@ -70,3 +73,4 @@
         </tr>
     }
 </table>
+@Html.Action("PageList", "CourseSearch", Model.SearchCourse)

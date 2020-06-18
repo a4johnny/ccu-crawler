@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CCU_Crawler.Models
@@ -30,8 +31,14 @@ namespace CCU_Crawler.Models
         public string Name { get; set; }
         public string Teacher { get; set; }
         public int OrderType { get; set; }
+        public int Page { get; set; }
     }
-    public class CourseToView
+    public class JointSearchCourseToView
+    {
+        public SearchCourse SearchCourse { get; set; }
+        public IEnumerable<JointSearchCourse> JointSearchCourseList { get; set; }
+    }
+    public class JointSearchCourse
     {
         public int Id { get; set; }
         [DisplayName("系所名稱")]

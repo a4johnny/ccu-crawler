@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using CCU_Crawler.Models;
 using Microsoft.Ajax.Utilities;
+using PagedList;
 
 namespace CCU_Crawler.Controllers
 {
     public class GuestbooksSearchController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
-
-        public ActionResult Index()
+        private SearchGuestbook lastSearchSetting;
+        private const int PAGE_SIZE = 10;
+        public ActionResult Index(int? page)
         {
+            ViewData["Page"] = page == null ? 1 : page;
             return View();
         }
         [HttpPost]
@@ -24,10 +29,24 @@ namespace CCU_Crawler.Controllers
         {
             return RedirectToAction("Search", searchGuestbook);
         }
+        public ActionResult PageList(SearchGuestbook searchGuestbook)
+        {
+            return PartialView(searchGuestbook);
+        }
         public ActionResult Search(SearchGuestbook searchGuestbook)
         {
             if (searchGuestbook is object)
             {
+                if (lastSearchSetting is object)
+                {
+                    if (searchGuestbook.Keyword != lastSearchSetting.Keyword || searchGuestbook.Score != lastSearchSetting.Score)
+                    {
+                        Debug.WriteLine("G");
+                        searchGuestbook.Page = 1;
+                    }
+                }
+                lastSearchSetting = searchGuestbook;
+                searchGuestbook.Page = searchGuestbook.Page == 0 ? 1 : searchGuestbook.Page;
                 var guestbooks = new List<Guestbook>();
                 if (!searchGuestbook.Keyword.IsNullOrWhiteSpace())
                 {
@@ -108,7 +127,8 @@ namespace CCU_Crawler.Controllers
                     ViewData["Group"] = "";
                 }
                 ViewData["OrderType"] = searchGuestbook.OrderType;
-                return PartialView(GuestbooksOrder(guestbooks, searchGuestbook.OrderType));
+                ViewData["Page"] = searchGuestbook.Page;
+                return PartialView(GuestbooksOrder(guestbooks.ToPagedList(searchGuestbook.Page, PAGE_SIZE).ToList(), searchGuestbook));
             }
             else
             {
@@ -117,29 +137,62 @@ namespace CCU_Crawler.Controllers
                 ViewData["Call"] = "";
                 ViewData["Sign"] = "";
                 ViewData["Group"] = "";
-                return PartialView(GuestbooksOrder(db.Guestbooks.ToList(), searchGuestbook.OrderType));
+                ViewData["Page"] = 1;
+                return PartialView(GuestbooksOrder(db.Guestbooks.ToPagedList(1, PAGE_SIZE).ToList(), searchGuestbook));
             }
         }
-        private List<Guestbook> GuestbooksOrder(List<Guestbook> guestbooks, int orderType)
+        private GuestbookToView GuestbooksOrder(List<Guestbook> guestbooks, SearchGuestbook searchGuestbook)
         {
-            switch (orderType)
+            switch (searchGuestbook.OrderType)
             {
                 case 1:
-                    return guestbooks.OrderByDescending(guestbook => guestbook.Call).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderByDescending(guestbook => guestbook.Call).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
                 case 2:
-                    return guestbooks.OrderByDescending(guestbook => guestbook.Sign).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderByDescending(guestbook => guestbook.Sign).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
                 case 3:
-                    return guestbooks.OrderByDescending(guestbook => guestbook.Group).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderByDescending(guestbook => guestbook.Group).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
                 case -1:
-                    return guestbooks.OrderBy(guestbook => guestbook.Score).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderBy(guestbook => guestbook.Score).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
                 case -2:
-                    return guestbooks.OrderBy(guestbook => guestbook.Call).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderBy(guestbook => guestbook.Call).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
                 case -3:
-                    return guestbooks.OrderBy(guestbook => guestbook.Sign).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderBy(guestbook => guestbook.Sign).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
                 case -4:
-                    return guestbooks.OrderBy(guestbook => guestbook.Group).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderBy(guestbook => guestbook.Group).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
                 default:
-                    return guestbooks.OrderByDescending(guestbook => guestbook.Score).ToList();
+                    return new GuestbookToView
+                    {
+                        GuestbookList = guestbooks.OrderByDescending(guestbook => guestbook.Score).ToList(),
+                        SearchGuestbook = searchGuestbook
+                    };
             }
         }
     }

@@ -412,3 +412,7 @@ C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\obj\Debug\CCU-Cra
 C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CopyComplete
 C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\obj\Debug\CCU-Crawler.dll
 C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\obj\Debug\CCU-Crawler.pdb
+C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\bin\PagedList.dll
+C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\bin\PagedList.Mvc.dll
+C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\bin\PagedList.xml
+C:\Users\skzer\OneDrive\Documents\Repo\CCU-Crawler\CCU-Crawler\bin\PagedList.Mvc.xml
