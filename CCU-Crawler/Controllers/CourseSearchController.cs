@@ -12,8 +12,12 @@ namespace CCU_Crawler.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: CourseSearch
-        public ActionResult Index(SearchCourse searchCourse)
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Search(SearchCourse searchCourse)
         {
             if (searchCourse is object)
             {
@@ -134,15 +138,10 @@ namespace CCU_Crawler.Controllers
             }
         }
 
-        public ActionResult Search()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Search([Bind(Include = "DepartmentName,Grade,Name,Teacher")] SearchCourse searchCourse)
+        public ActionResult Index([Bind(Include = "DepartmentName,Grade,Name,Teacher")] SearchCourse searchCourse)
         {
-            return RedirectToAction("Index", searchCourse);
+            return RedirectToAction("Search", searchCourse);
         }
         private List<CourseToView> CourseToViewOrder(List<CourseToView> coursesToView, int orderType)
         {

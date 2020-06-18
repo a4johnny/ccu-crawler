@@ -1,72 +1,29 @@
-﻿@model IEnumerable<CCU_Crawler.Models.CourseToView>
+﻿@model CCU_Crawler.Models.SearchCourse
 
 @{
     ViewBag.Title = "Index";
 }
 
-<table class="table table-bordered table-sm">
-    <tr>
-        <th width="180px" style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            @Ajax.ActionLink("課程名稱", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
-            {
-                DepartmentName = ViewData["DepartmentName"] as string,
-                Grade = ViewData["Grade"] as string,
-                Name = ViewData["Name"] as string,
-                Teacher = ViewData["Teacher"] as string,
-                OrderType = (int)ViewData["OrderType"] == 1 ? -2 : 1
-            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
-        </th>
-        <th width="85px" style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Teacher)
-        </th>
-        <th width="50px" style="text-align: center; vertical-align: middle">
-            @Ajax.ActionLink("學分", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
-            {
-                DepartmentName = ViewData["DepartmentName"] as string,
-                Grade = ViewData["Grade"] as string,
-                Name = ViewData["Name"] as string,
-                Teacher = ViewData["Teacher"] as string,
-                OrderType = (int)ViewData["OrderType"] == 2 ? -3 : 2
-            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
-        </th>
-        <th width="60px" style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th width="50px" style="text-align: center; vertical-align: middle">
-            @Ajax.ActionLink("熱門", "../CourseSearch/Index", new CCU_Crawler.Models.SearchCourse
-            {
-                DepartmentName = ViewData["DepartmentName"] as string,
-                Grade = ViewData["Grade"] as string,
-                Name = ViewData["Name"] as string,
-                Teacher = ViewData["Teacher"] as string,
-                OrderType = (int)ViewData["OrderType"] == 0 ? -1 : 0
-            }, new AjaxOptions() { UpdateTargetId = "ajaxlist" })
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td style="text-align: center; vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.DepartmentName)
-            </td>
-            <td style="vertical-align: middle">
-                @Html.ActionLink(item.CourseName, "../Guestbooks/List", new { id = item.Id }, new { @class = "my-class" })
-            </td>
-            <td style="text-align: center; vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.Teacher)
-            </td>
-            <td style="text-align: center; vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.Credit)
-            </td>
-            <td style="text-align: center; vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td style="text-align: center; vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.Popularity)
-            </td>
-        </tr>
-    }
-</table>
+<h1><b>課程檢索</b></h1>
+@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxlist" }))
+{
+    @Html.AntiForgeryToken()
+
+    <form id="form0" class="form-horizontal inner" style="text-align:center">
+        <hr />
+        <label class="control-label">系所名稱：</label>
+        @Html.EditorFor(model => model.DepartmentName)
+        <label class="control-label">課程年級：</label>
+        @Html.EditorFor(model => model.Grade)
+        <label class="control-label">課程名稱：</label>
+        @Html.EditorFor(model => model.Name)
+        <label class="control-label">任教老師：</label>
+        @Html.EditorFor(model => model.Teacher)
+        <input type="submit" value="按此搜尋" class="btn btn-default" />
+        <hr />
+    </form>
+}
+
+<div id="ajaxlist">
+    @Html.Action("Search", "CourseSearch", Model)
+</div>
