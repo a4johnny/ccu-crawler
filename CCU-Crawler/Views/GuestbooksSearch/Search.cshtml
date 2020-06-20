@@ -1,0 +1,25 @@
+﻿@model CCU_Crawler.Models.SearchGuestbook
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h1><b>留言檢索</b></h1>
+@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxlist" }))
+{
+    @Html.AntiForgeryToken()
+
+    <form id="form0" class="form-horizontal inner">
+        <hr />
+        <label class="control-label">關鍵字：</label>
+        @Html.EditorFor(model => model.Keyword)
+        <label class="control-label">分數：</label>
+        @Html.EditorFor(model => model.Score)
+        <input type="submit" value="按此搜尋" class="btn btn-default" />
+        <hr />
+    </form>
+}
+
+<div id="ajaxlist">
+    @Html.Action("Index", "GuestbooksSearch", Model)
+</div>

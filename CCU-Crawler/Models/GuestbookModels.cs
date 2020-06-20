@@ -16,9 +16,20 @@ namespace CCU_Crawler.Models
         public int? Sign { get; set; }
         public int? Group { get; set; }
         public string Infomation { get; set;  }
+
         public int good { get; set; }
         public int bad { get; set; }
+
         public int CourceId { get; set; }
         public DateTime? DateTime { get; set; }
+    }
+    public class SearchGuestbook
+    {
+        public string Keyword { get; set; }
+        public string Score { get; set; }
+        public string Call { get; set; }
+        public string Sign { get; set; }
+        public string Group { get; set; }
+        public int OrderType { get; set; }
     }
 }

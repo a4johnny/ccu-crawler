@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Conplaint";
     var temp = @TempData["id2"];  //暫存課程id
+    /*var color = ViewBag.changecolor;*/
 }
 
 <h2 style="font-family:consolas,Microsoft JhengHei;">我要評論</h2>
@@ -23,7 +24,7 @@
     <br>
     <div class="navbar navbar-inverse" style="width:220px;height:70px">
         @*radiobutton 點點 (傳給controller的參數名稱,value)*@
-        <h4 style="color:white;font-family:Microsoft JhengHei;">&nbsp;評分 :</h4>
+        <h4 style="color:white;font-family:Microsoft JhengHei;">&nbsp;評分(必填) :</h4>
         <h4 style="color:white;font-family:consolas;text-align:center;">@Html.RadioButton("score", 1, new { type = "checkbox" }) 1 @Html.RadioButton("score", 2, new { type = "checkbox" }) 2 @Html.RadioButton("score", 3, new { type = "checkbox" }) 3 @Html.RadioButton("score", 4, new { type = "checkbox" }) 4 @Html.RadioButton("score", 5, new { type = "checkbox" }) 5</h4>
     </div>
 
@@ -34,13 +35,14 @@
     </div>
 
     <div style="background-color:white;width:400px;height:5px"></div>
-    
+
     <h4 style="font-family: Microsoft JhengHei">&nbsp;有話想說 :</h4>
 
     @*@Html.TextArea("content", new { @class = "resizer" })*@
     @Html.TextArea("content", new { cols = "60", rows = "5" })
 
     @*把課程id傳回去 again*@
+    @*<input type="hidden" id="classId" name="type" value=@color>*@
     <input type="hidden" id="classId" name="classId" value=@temp>
     <input style="font-family:Microsoft JhengHei;" type="submit" value="送出">
 

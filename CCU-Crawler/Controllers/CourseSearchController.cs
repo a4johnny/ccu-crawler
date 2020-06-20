@@ -20,6 +20,7 @@ namespace CCU_Crawler.Controllers
                 var courses = new List<Course>();
                 if (!searchCourse.DepartmentName.IsNullOrWhiteSpace())
                 {
+                    ViewData["DepartmentName"] = searchCourse.DepartmentName;
                     var currentDepartment = db.Departments.Where(department => department.Name.Contains(searchCourse.DepartmentName)).FirstOrDefault();
                     if (currentDepartment is object)
                     {
@@ -30,10 +31,12 @@ namespace CCU_Crawler.Controllers
                 }
                 else
                 {
+                    ViewData["DepartmentName"] = "";
                     courses = db.Courses.ToList();
                 }
                 if (!searchCourse.Grade.IsNullOrWhiteSpace() && searchCourse.Grade != string.Empty)
                 {
+                    ViewData["Grade"] = searchCourse.Grade;
                     var integerGrade = int.Parse(searchCourse.Grade);
                     if (courses.Count == 0)
                     {
@@ -44,8 +47,13 @@ namespace CCU_Crawler.Controllers
                         courses = courses.Where(course => course.Grade == integerGrade).ToList();
                     }
                 }
+                else
+                {
+                    ViewData["Grade"] = "";
+                }
                 if (!searchCourse.Name.IsNullOrWhiteSpace() && searchCourse.Name != string.Empty)
                 {
+                    ViewData["Name"] = searchCourse.Name;
                     if (courses.Count == 0)
                     {
                         courses = db.Courses.Where(course => course.Name.Contains(searchCourse.Name)).ToList();
@@ -55,8 +63,13 @@ namespace CCU_Crawler.Controllers
                         courses = courses.Where(course => course.Name.Contains(searchCourse.Name)).ToList();
                     }
                 }
+                else
+                {
+                    ViewData["Name"] = "";
+                }
                 if (!searchCourse.Teacher.IsNullOrWhiteSpace() && searchCourse.Teacher != string.Empty)
                 {
+                    ViewData["Teacher"] = searchCourse.Teacher;
                     if (courses.Count == 0)
                     {
                         courses = db.Courses.Where(course => course.Teacher.Contains(searchCourse.Teacher)).ToList();
@@ -65,6 +78,10 @@ namespace CCU_Crawler.Controllers
                     {
                         courses = courses.Where(course => course.Teacher.Contains(searchCourse.Teacher)).ToList();
                     }
+                }
+                else
+                {
+                    ViewData["Teacher"] = "";
                 }
                 var coursesToView = (from course in courses
                                      join department in db.Departments on course.DepartmentId equals department.Id
@@ -82,12 +99,18 @@ namespace CCU_Crawler.Controllers
                                          Location = course.Location,
                                          Limit = course.Limit,
                                          Url = course.Url,
-                                         Remark = course.Remark
+                                         Remark = course.Remark,
+                                         Popularity = course.Popularity
                                      }).ToList();
-                return PartialView(coursesToView);
+                ViewData["OrderType"] = searchCourse.OrderType;
+                return PartialView(CourseToViewOrder(coursesToView, searchCourse.OrderType));
             }
             else
             {
+                ViewData["DepartmentName"] = "";
+                ViewData["Grade"] = "";
+                ViewData["Name"] = "";
+                ViewData["Teacher"] = "";
                 var courses = db.Courses.ToList();
                 var coursesToView = (from course in courses
                                      join department in db.Departments on course.DepartmentId equals department.Id
@@ -107,7 +130,7 @@ namespace CCU_Crawler.Controllers
                                          Url = course.Url,
                                          Remark = course.Remark
                                      }).ToList();
-                return PartialView(coursesToView);
+                return PartialView(CourseToViewOrder(coursesToView, searchCourse.OrderType));
             }
         }
 
@@ -121,18 +144,23 @@ namespace CCU_Crawler.Controllers
         {
             return RedirectToAction("Index", searchCourse);
         }
-
-        public ActionResult HighPopularity()
+        private List<CourseToView> CourseToViewOrder(List<CourseToView> coursesToView, int orderType)
         {
-            var CommentList = new List<Course>();
-            CommentList = db.Courses.Where(p => p.Popularity > 0)
-                                    .OrderByDescending(x => x.Popularity)
-                                    .ToList();
-                                    //.GetRange(0, 3);
-            if (CommentList.Count > 2)
-                CommentList = CommentList.GetRange(0, 3);
-            //CommentList = CommentList.GetRange(0, 3).ToList();
-            return PartialView(CommentList);
+            switch (orderType)
+            {
+                case 1:
+                    return coursesToView.OrderByDescending(courseToView => courseToView.CourseName.Length).ToList();
+                case 2:
+                    return coursesToView.OrderByDescending(courseToView => courseToView.Credit).ToList();
+                case -1:
+                    return coursesToView.OrderBy(courseToView => courseToView.Popularity).ToList();
+                case -2:
+                    return coursesToView.OrderBy(courseToView => courseToView.CourseName.Length).ToList();
+                case -3:
+                    return coursesToView.OrderBy(courseToView => courseToView.Credit).ToList();
+                default:
+                    return coursesToView.OrderByDescending(courseToView => courseToView.Popularity).ToList();
+            }
         }
     }
 }

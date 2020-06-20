@@ -189,6 +189,7 @@
     <Compile Include="Controllers\CourseSearchController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\GuestbooksController.cs" />
+    <Compile Include="Controllers\GuestbooksSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -284,16 +285,13 @@
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Guestbooks\Create.cshtml" />
     <Content Include="Views\Guestbooks\Delete.cshtml" />
-    <Content Include="Views\Guestbooks\Details.cshtml" />
-    <Content Include="Views\Guestbooks\Edit.cshtml" />
-    <Content Include="Views\Guestbooks\Index.cshtml" />
     <Content Include="Views\Guestbooks\List.cshtml" />
     <Content Include="Views\Guestbooks\Conplain.cshtml" />
     <Content Include="Views\CourseSearch\Index.cshtml" />
     <Content Include="Views\CourseSearch\Search.cshtml" />
-    <Content Include="Views\CourseSearch\HighPopularity.cshtml" />
+    <Content Include="Views\GuestbooksSearch\Index.cshtml" />
+    <Content Include="Views\GuestbooksSearch\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -351,6 +349,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap-theme_1min_1css_1map__JsonSchema="https://json.schemastore.org/stylelintrc" content_4bootstrap_1css_1map__JsonSchema="https://json.schemastore.org/swagger-2.0" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

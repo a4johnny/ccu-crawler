@@ -3,6 +3,7 @@
     padding-bottom: 20px;
     font-family: Consolas,"Microsoft JhengHei";
     font-size: 16px; /*這行不寫的話字體是14px*/
+    background-color:#EEEEEE;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,5 +23,58 @@
 input,
 select,
 textarea {
-    max-width: 169px;/*原本是字體14px,文字框280px*/
+    max-width: 165px;/*原本是字體14px,文字框280px*/
+}
+
+/*超連結的顏色*/
+a.my-class:link { /*未拜訪過的超連結顏色*/
+    color: #2a7b90
+}
+a.my-class:visited { /*拜訪過的超連結顏色*/
+    color: #777777
+}
+a.my-class:hover { /*游標指到的超連結顏色*/
+    color: #1e5664
+}
+a.my-class:active { /*游標按著超連結時的顏色*/
+    color: #a5afb4
+}
+a.my-class:focus { /*使用Tab移到超連結時的顏色*/
+    color: #3295ad
+}
+
+/*"我要評論"的樣式*/
+.my-button {
+    outline: 0;
+    /* margin: 0 4px 0 0;*/ /*整塊框框跟上右下左的距離*/
+    padding: 0.55em 1em; /*框框內整塊上下、左右的高度、寬度*/
+    height: 2.5em;
+    text-decoration: none !important; /*游標指到超連結時不要有底線*/
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block; /*整塊框框要不要被呈現出來*/
+    background-color: #646464; /*框框內的顏色*/
+    border: 1px solid #777777; /*框框的粗細度、樣式、顏色*/
+}
+
+a.my-button:link { /*未拜訪過的超連結顏色*/
+    color: white
+}
+
+a.my-button:visited { /*拜訪過的超連結顏色*/
+    color: #9d9d9d
+}
+
+a.my-button:hover { /*游標指到的超連結顏色*/
+    color: #777777
+}
+
+a.my-button:active { /*游標按著超連結時的顏色*/
+    color: #cbcbcb
+}
+
+a.my-button:focus { /*使用Tab移到超連結時的顏色*/
+    color: #cbcbcb
 }

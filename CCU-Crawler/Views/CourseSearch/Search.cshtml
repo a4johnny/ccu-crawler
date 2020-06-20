@@ -5,16 +5,11 @@
 }
 
 <h1><b>課程檢索</b></h1>
-
-<p>
-    @Html.Action("HighPopularity")
-</p>
-
 @using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxlist" }))
 {
     @Html.AntiForgeryToken()
 
-    <form id="form0" class="form-horizontal inner">
+    <form id="form0" class="form-horizontal inner" style="text-align:center">
         <hr />
         <label class="control-label">系所名稱：</label>
         @Html.EditorFor(model => model.DepartmentName)
@@ -28,6 +23,7 @@
         <hr />
     </form>
 }
+
 
 <div id="ajaxlist">
     @Html.Action("Index", "CourseSearch", Model)
