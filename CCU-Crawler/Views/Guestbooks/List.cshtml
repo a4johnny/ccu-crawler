@@ -26,16 +26,14 @@
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <div style="position:relative; left: 30% ; width: 40%; height: 40%;">
             <canvas id="myChart_bar" width="400" height="300"></canvas> @*可以調大小*@
-        </div>
-        <div style="position:relative; left: 30% ; width: 40%; height: 40%;">
             <canvas id="myChart_pie" width="400" height="300"></canvas>
         </div>
-        <script>
-            var ctx = document.getElementById('myChart_bar').getContext('2d');
-            function getRandom(x) {
-                return Math.floor(Math.random() * x);
-            };
 
+        <div style="position:relative; left: 30% ; width: 40%; height: 40%;">
+            <canvas id="myChart_bar2" width="400" height="300"></canvas> @*可以調大小*@
+            <canvas id="myChart_bar3" width="400" height="300"></canvas>
+        </div>
+        <script>
 
 
             @{
@@ -50,9 +48,6 @@
                 {
                     switch (model.Score)
                     {
-                        case 0:
-                            vote0++;
-                            break;
                         case 1:
                             vote1++;
                             break;
@@ -72,29 +67,30 @@
                 }
 }
 
-
+            var ctx = document.getElementById('myChart_bar').getContext('2d');
+            function getRandom(x) {
+                return Math.floor(Math.random() * x);
+            };
                         var myChart_bar = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                        labels: ['0分', '1分', '2分', '3分', '4分', '5分'],
+                        labels: ['1分', '2分', '3分', '4分', '5分'],
                     datasets: [{
-                            label: '# of Votes',
-                        data: [@vote0, @vote1, @vote2, @vote3, @vote4, @vote5],
+                            label: '評分人數',
+                        data: [@vote1, @vote2, @vote3, @vote4, @vote5],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            'rgba(205, 135, 135, 0.4)',
+                            'rgba(23, 89, 111, 0.4)',
+                            'rgba(242, 214, 161, 0.4)',
+                            'rgba(167, 198, 188, 0.4)',
+                            'rgba(232, 166, 144, 0.4)'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(54, 162, 235, 0.4)',
-                            'rgba(255, 206, 86, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(153, 102, 255, 0.4)',
-                            'rgba(255, 159, 64, 0.4)'
+                            'rgba(205, 135, 135, 0.6)',
+                            'rgba(23, 89, 111, 0.6)',
+                            'rgba(242, 214, 161, 0.6)',
+                            'rgba(167, 198, 188, 0.6)',
+                            'rgba(232, 166, 144, 0.6)'
                         ],
                         borderWidth: 0.5
                     }]
@@ -116,15 +112,15 @@
                 data: {
                     labels: ['0分', '1分', '2分', '3分', '4分', '5分'],
                     datasets: [{
-                        label: '# of Votes',
+                        label: '評分人數',
                         data: [@vote0, @vote1, @vote2, @vote3, @vote4, @vote5],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            'rgba(205, 135, 135, 0.4)',
+                            'rgba(23, 89, 111, 0.4)',
+                            'rgba(242, 214, 161, 0.4)',
+                            'rgba(167, 198, 188, 0.4)',
+                            'rgba(232, 166, 144, 0.4)',
+                            'rgba(92, 71, 93, 0.4)'
                         ]
                     }],
                 },
@@ -132,7 +128,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: '課程評分%'
+                        text: '課程評分圓餅圖'
                     },
                     legend: {
                         position: 'bottom',
@@ -142,6 +138,150 @@
                         }
                     }
                 });
+            @{
+                float rollcall_always = 0; //時常點名
+                float rollcall_often = 0; //偶爾點名
+                float rollcall_none = 0; //不需點名
+                float signcourse_always = 0; //無條件加簽
+                float signcourse_condition = 0; //有條件加簽
+                float signcourse_none = 0; //不可加簽
+                float grouping_yes = 0; //需要分組
+                float grouping_none = 0; //不需分組
+
+                foreach (var model in Model)
+                {
+                    switch (model.Call)
+                    {
+                        case 1:
+                            rollcall_always++;
+                            break;
+                        case 2:
+                            rollcall_often++;
+                            break;
+                        case 3:
+                            rollcall_none++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                foreach (var model in Model)
+                {
+                    switch (model.Group)
+                    {
+                        case 1:
+                            grouping_yes++;
+                            break;
+                        default:
+                            grouping_none++;
+                            break;
+                    }
+                }
+
+                foreach (var model in Model)
+                {
+                    switch (model.Sign)
+                    {
+                        case 1:
+                            signcourse_always++;
+                            break;
+                        case 2:
+                            signcourse_condition++;
+                            break;
+                        case 3:
+                            signcourse_none++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                float rollcall_average = (rollcall_always+ rollcall_often*2+ rollcall_none*3) /(rollcall_always+ rollcall_often+ rollcall_none);
+                float signcourse_average = (signcourse_always+ signcourse_condition*2+ signcourse_none*3) /(signcourse_always+ signcourse_condition+ signcourse_none);
+                float grouping = grouping_yes / (grouping_yes + grouping_none);
+}
+
+            var ctx = document.getElementById('myChart_bar2').getContext('2d');
+            function getRandom(x) {
+                return Math.floor(Math.random() * x);
+            };
+                        var myChart_bar2 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['時常點名', '偶爾點名', '不需點名', '無條件加簽', '有條件加簽', '不可加簽', '需要分組', '不需分組'],
+                    datasets: [{
+                            label: '評論人數',
+                        data: [@rollcall_always, @rollcall_often, @rollcall_none, @signcourse_always, @signcourse_condition, @signcourse_none, @grouping_yes, @grouping_none],
+                        backgroundColor: [
+                            'rgba(205, 135, 135, 0.4)',
+                            'rgba(23, 89, 111, 0.4)',
+                            'rgba(242, 214, 161, 0.4)',
+                            'rgba(167, 198, 188, 0.4)', //'rgba(74, 124, 124, 0.4)'
+                            'rgba(232, 166, 144, 0.4)',
+                            'rgba(92, 71, 93, 0.4)',
+                            'rgba(159, 146, 122, 0.4)',
+                            'rgba(128, 128, 128, 0.4)'
+
+                        ],
+                        borderColor: [
+                            'rgba(205, 135, 135, 0.6)',
+                            'rgba(23, 89, 111, 0.6)',
+                            'rgba(242, 214, 161, 0.6)',
+                            'rgba(167, 198, 188, 0.6)',
+                            'rgba(232, 166, 144, 0.6)',
+                            'rgba(92, 71, 93, 0.6)',
+                            'rgba(159, 146, 122,0.6)',
+                            'rgba(141, 141, 141, 0.6)'
+                        ],
+                        borderWidth: 0.5
+                    }]
+                },
+                options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                                }]
+                    }
+                        }
+                    });
+                        var ctx = document.getElementById('myChart_bar3').getContext('2d');
+            function getRandom(x) {
+                return Math.floor(Math.random() * x);
+            };
+                        var myChart_bar3 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['點名 (1~3)', '加簽 (1~3)','分組 (0~1)'],
+                    datasets: [{
+                            label: '平均分數',
+                        data: [@rollcall_average, @signcourse_average, @grouping],
+                        backgroundColor: [
+                            'rgba(205, 135, 135, 0.4)',
+                            'rgba(232, 166, 144, 0.4)',
+                            'rgba(92, 71, 93, 0.4)'
+                        ],
+                        borderColor: [
+                            'rgba(205, 135, 135, 0.6)',
+                            'rgba(232, 166, 144, 0.6)',
+                            'rgba(92, 71, 93, 0.6)'
+                        ],
+                        borderWidth: 0.5
+                    }]
+                },
+                options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                                }]
+                    }
+                        }
+                    });
+
 
         </script>
     }

@@ -558,3 +558,7 @@ C:\Users\a4\Desktop\新增資料夾\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.Cor
 C:\Users\a4\Desktop\新增資料夾\CCU-Crawler\obj\Debug\CCU-Crawler.csproj.CopyComplete
 C:\Users\a4\Desktop\新增資料夾\CCU-Crawler\obj\Debug\CCU-Crawler.dll
 C:\Users\a4\Desktop\新增資料夾\CCU-Crawler\obj\Debug\CCU-Crawler.pdb
+C:\Users\yyian\source\repos\ccu-crawler\CCU-Crawler\bin\PagedList.dll
+C:\Users\yyian\source\repos\ccu-crawler\CCU-Crawler\bin\PagedList.Mvc.dll
+C:\Users\yyian\source\repos\ccu-crawler\CCU-Crawler\bin\PagedList.xml
+C:\Users\yyian\source\repos\ccu-crawler\CCU-Crawler\bin\PagedList.Mvc.xml
