@@ -292,11 +292,7 @@
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Guestbooks\Create.cshtml" />
     <Content Include="Views\Guestbooks\Delete.cshtml" />
-    <Content Include="Views\Guestbooks\Details.cshtml" />
-    <Content Include="Views\Guestbooks\Edit.cshtml" />
-    <Content Include="Views\Guestbooks\Index.cshtml" />
     <Content Include="Views\Guestbooks\List.cshtml" />
     <Content Include="Views\Guestbooks\Conplain.cshtml" />
     <Content Include="Views\CourseSearch\Index.cshtml" />
@@ -362,7 +358,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4bootstrap-theme_1min_1css_1map__JsonSchema="https://json.schemastore.org/stylelintrc" content_4bootstrap_1css_1map__JsonSchema="https://json.schemastore.org/swagger-2.0" />
+      <UserProperties content_4bootstrap_1css_1map__JsonSchema="https://json.schemastore.org/swagger-2.0" content_4bootstrap-theme_1min_1css_1map__JsonSchema="https://json.schemastore.org/stylelintrc" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

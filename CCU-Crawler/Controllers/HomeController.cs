@@ -10,7 +10,7 @@ namespace CCU_Crawler.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("../CourseSearch/Search");
+            return RedirectToAction("../CourseSearch/Index");
         }
 
         public ActionResult About()

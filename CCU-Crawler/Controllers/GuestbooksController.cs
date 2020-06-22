@@ -15,14 +15,6 @@ namespace CCU_Crawler.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Guestbooks
-        public ActionResult Index()
-        {
-            return View(db.Courses.ToList());
-        }
-
-        // GET: Guestbooks/Details/5
-
         public ActionResult List(int? id) // 列出選中的課程評論
         {   
             if (id == null)
@@ -45,6 +37,46 @@ namespace CCU_Crawler.Controllers
         [HttpPost]
         public ActionResult List(int CourseId, int CommentId, string action) //給評論的地方
         {
+            TempData["warning"] = null;
+            if (User.Identity.Name == null || User.Identity.Name == "")
+            {
+                TempData["warning"] = "請先登入";
+                return RedirectToAction("List", new { id = CourseId });
+            }
+
+            if (db.Comments.Where(x => x.CommentId == CommentId && x.User == User.Identity.Name).FirstOrDefault() != null)  // 如果有按過
+            {
+                Comment comment2 = new Comment();
+                comment2 = db.Comments.Where(x => x.CommentId == CommentId && x.User == User.Identity.Name).FirstOrDefault();
+
+                int TenpGoodOrBad = 0;
+
+                if (action == "讚")
+                {
+                    TenpGoodOrBad = 1;
+                }
+                else if (action == "評論Bad")
+                {
+                    TenpGoodOrBad = 0;
+                }
+
+                Guestbook guestbook2 = new Guestbook();
+                guestbook2 = db.Guestbooks.Where(x => x.Id == CommentId).FirstOrDefault();
+                if (comment2.GoodOrBad == 1)
+                    guestbook2.good--;
+                else if (comment2.GoodOrBad == 0)
+                    guestbook2.bad--;
+
+                var CommentGoodOrBad2 = comment2.GoodOrBad;
+                db.Comments.Remove(comment2);
+                db.SaveChanges();
+
+                if (CommentGoodOrBad2 == TenpGoodOrBad)
+                {
+                    return RedirectToAction("List", new { id = CourseId });
+                }
+            }
+
             Comment comment = new Comment();
             comment.CourseId = CourseId;
             comment.CommentId = CommentId;
@@ -128,75 +160,6 @@ namespace CCU_Crawler.Controllers
             db.SaveChanges();
 
             return RedirectToAction("List", new { id = classid });
-        }
-
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Guestbook guestbook = db.Guestbooks.Find(id);
-            if (guestbook == null)
-            {
-                return HttpNotFound();
-            }
-            return View(guestbook);
-        }
-
-        // GET: Guestbooks/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Guestbooks/Create
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Score,Content")] Guestbook guestbook)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Guestbooks.Add(guestbook);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(guestbook);
-        }
-
-        // GET: Guestbooks/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Guestbook guestbook = db.Guestbooks.Find(id);
-            if (guestbook == null)
-            {
-                return HttpNotFound();
-            }
-            return View(guestbook);
-        }
-
-        // POST: Guestbooks/Edit/5
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Score,Content")] Guestbook guestbook)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(guestbook).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(guestbook);
         }
 
         // GET: Guestbooks/Delete/5

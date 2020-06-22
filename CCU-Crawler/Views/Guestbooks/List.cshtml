@@ -1,12 +1,21 @@
-﻿
-@model IEnumerable<CCU_Crawler.Models.Guestbook>
+﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
+@using CCU_Crawler.Models;
 
-@{
+@functions{
     //ViewBag.Title = "List";
+    private ApplicationDbContext db = new ApplicationDbContext();
 }
 
 <h1><b>課程資訊</b></h1>
 @*@Styles.Render("~/Content/css")*@  @*layout裡有寫就可以了*@
+
+@if (TempData["warning"] != null)
+{
+    <script type="text/javascript">
+        var warning = @Html.Raw(Json.Encode(TempData["warning"])); //把tempdata的字串轉成json js只認json
+        alert(warning);
+    </script>
+}
 
 @using (Html.BeginForm())
 {
@@ -26,7 +35,7 @@
             function getRandom(x) {
                 return Math.floor(Math.random() * x);
             };
-       
+
 
 
             @{
@@ -62,7 +71,7 @@
                     }
                 }
 }
-            
+
 
                         var myChart_bar = new Chart(ctx, {
                 type: 'bar',
@@ -138,34 +147,34 @@
     }
 
 
-<table class="table table-bordered table-sm">
-    <thead>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <td class="col-lg-1" style="text-align: center; vertical-align: middle">
+                    課程名稱 :
+                </td>
+                <td class="col-lg-7" style="vertical-align: middle">
+                    @ViewBag.name
+                </td>
+            <tr>
+        </thead>
         <tr>
-            <td class="col-lg-1" style="text-align: center; vertical-align: middle">
-                課程名稱 :
+            <td style="text-align: center; vertical-align: middle">
+                指導教授 :
             </td>
-            <td class="col-lg-7" style="vertical-align: middle">
-                @ViewBag.name
+            <td style="vertical-align: middle">
+                @ViewBag.teacher
             </td>
         <tr>
-    </thead>
-    <tr>
-        <td style="text-align: center; vertical-align: middle">
-            指導教授 :
-        </td>
-        <td style="vertical-align: middle">
-            @ViewBag.teacher
-        </td>
-    <tr>
-    <tr>
-        <td style="text-align: center; vertical-align: middle">
-            課程註解 :
-        </td>
-        <td style="vertical-align: middle">
-            @ViewBag.remark
-        </td>
-    <tr>
-</table>
+        <tr>
+            <td style="text-align: center; vertical-align: middle">
+                課程註解 :
+            </td>
+            <td style="vertical-align: middle">
+                @ViewBag.remark
+            </td>
+        <tr>
+    </table>
 
     <p>
         @*css的放置位置在 content 資料夾內*@
@@ -208,8 +217,27 @@
                 {
                     <input type="hidden" value=@TempData["id"] name="CourseId">
                     <input type="hidden" value=@item.Id name="CommentId">
-                    <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
-                    <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
+
+                    if (db.Comments.Where(x => x.User == User.Identity.Name && x.CommentId == item.Id).FirstOrDefault() != null)
+                    {
+                        Comment comment = new Comment();
+                        comment = db.Comments.Where(x => x.User == User.Identity.Name && x.CommentId == item.Id).FirstOrDefault();
+                        if (comment.GoodOrBad == 0)
+                        {
+                            <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
+                            <input type="submit" value="評論Bad" name="action" class="btn btn-default" style="background-color:blanchedalmond;" /> @item.bad
+                        }
+                        else if (comment.GoodOrBad == 1)
+                        {
+                            <input type="submit" value="讚" name="action" class="btn btn-default" style="background-color:blanchedalmond;" /> @item.good
+                            <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
+                        }
+                    }
+                    else
+                    {
+                        <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
+                        <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
+                    }
                 }
             </td>
 
