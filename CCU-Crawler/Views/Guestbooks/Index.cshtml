@@ -1,0 +1,33 @@
+﻿@*@model IEnumerable<CCU_Crawler.Models.Guestbook>*@
+@model IEnumerable<CCU_Crawler.Models.Course>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teacher)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+        <td>
+            @Html.ActionLink(item.Name, "List", new { id=item.Id })  @*actionlink不用加 modelItem (顯示名稱，跳轉位置，傳遞參數，使用的js(這裡沒用))*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Teacher)
+        </td>
+    </tr>
+    }
+
+</table>

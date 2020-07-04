@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<CCU_Crawler.Models.Guestbook>
-@using CCU_Crawler.Models;
 
-@functions{
-    //ViewBag.Title = "List";
-    private ApplicationDbContext db = new ApplicationDbContext();
+@{ 
+    var list = ViewBag.list;
+    var num = 0;
 }
 
 <h1><b>課程資訊</b></h1>
@@ -213,35 +212,38 @@
             @Html.DisplayFor(modelItem => item.DateTime)
         </td>
 
-        <td style="text-align: center; vertical-align: middle">
+        <td style="text-align: center; vertical-align: middle" id="ajaxid">
             @using (Html.BeginForm())
             {
                 <input type="hidden" value=@TempData["id"] name="CourseId">
                 <input type="hidden" value=@item.Id name="CommentId">
 
-                if (db.Comments.Where(x => x.User == User.Identity.Name && x.CommentId == item.Id).FirstOrDefault() != null)
-                {
-                    Comment comment = new Comment();
-                    comment = db.Comments.Where(x => x.User == User.Identity.Name && x.CommentId == item.Id).FirstOrDefault();
-                    if (comment.GoodOrBad == 0)
-                    {
-                        <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
-                        <input type="submit" value="評論Bad" name="action" class="btn btn-default" style="background-color:blanchedalmond;" /> @item.bad
-                    }
-                    else if (comment.GoodOrBad == 1)
-                    {
-                        <input type="submit" value="讚" name="action" class="btn btn-default" style="background-color:blanchedalmond;" /> @item.good
-                        <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
-                    }
-                }
-                else
+                if (list == null)
                 {
                     <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
                     <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
                 }
+                else if (list[num] == 0)
+                {
+                    <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
+                    <input type="submit" value="評論Bad" name="action" class="btn btn-default" style="background-color:blanchedalmond;" /> @item.bad
+                }
+                else if (list[num] == 1)
+                {
+                    <input type="submit" value="讚" name="action" class="btn btn-default" style="background-color:blanchedalmond;" /> @item.good
+                    <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
+                }
+                else if(list[num] == 2)
+                {
+                    <input type="submit" value="讚" name="action" class="btn btn-default" /> @item.good
+                    <input type="submit" value="評論Bad" name="action" class="btn btn-default" /> @item.bad
+                }
+                if (num < @ViewBag.limit)
+                {
+                    num++;
+                }
             }
         </td>
-
     </tr>
         }
 </table>

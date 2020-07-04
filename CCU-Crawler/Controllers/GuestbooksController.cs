@@ -33,17 +33,64 @@ namespace CCU_Crawler.Controllers
             course.Popularity = db.Guestbooks.Where(p => p.CourceId == id).ToList().Count(); //初始化資料庫用 可刪除
             db.SaveChanges();                                                                //同上
 
+            if (User.Identity.Name == null || User.Identity.Name == "")
+            {
+                int limit = db.Guestbooks.Where(p => p.CourceId == id).ToList().Count();
+                ViewBag.limit = limit;
+                var list = new List<int>();
+                for (var i = 0; i <= limit; i++)
+                {
+                    list.Add(2);
+                }
+                ViewBag.list = list;
+            }
+            else
+            {
+                int limit = db.Guestbooks.Where(p => p.CourceId == id).ToList().Count();
+                ViewBag.limit = limit;
+                var limitlist = db.Guestbooks.Where(p => p.CourceId == id).ToList();
+                var commentlist = db.Comments.Where(p => p.CourseId == id).ToList();
+                var list = new List<int>();
+                foreach (var i in limitlist)
+                {
+                    if (commentlist.Where(x => x.CommentId == i.Id && x.User == User.Identity.Name).FirstOrDefault() != null)
+                    {
+                        var target = commentlist.Where(x => x.CommentId == i.Id && x.User == User.Identity.Name).FirstOrDefault();
+                        if (target.GoodOrBad == 1)
+                            list.Add(1);
+                        else if (target.GoodOrBad == 0)
+                            list.Add(0);
+                    }
+                    else
+                    {
+                        list.Add(2);
+                    }
+                }
+                ViewBag.list = list;
+            }
             return View(db.Guestbooks.Where(p => p.CourceId == id).ToList()); //只顯示給該課程的評論
         }
 
         [HttpPost]
         public ActionResult List(int CourseId, int CommentId, string action) //給評論的地方
         {
+            Course course = db.Courses.Find(CourseId);
+            TempData["id"] = CourseId;
+
+            ViewBag.name = course.Name;
+            ViewBag.teacher = course.Teacher;
+            ViewBag.remark = course.Remark;
             TempData["warning"] = null;
+
+            int limit;
+            var limitlist = db.Guestbooks.ToList(); // 宣告 初始化
+            var commentlist = db.Comments.ToList(); ; // 宣告 初始化
+            var list = new List<int>();
+
             if (User.Identity.Name == null || User.Identity.Name == "")
             {
                 TempData["warning"] = "請先登入";
-                return RedirectToAction("List", new { id = CourseId });
+                return View(db.Guestbooks.Where(p => p.CourceId == CourseId).ToList());
             }
 
             if (db.Comments.Where(x => x.CommentId == CommentId && x.User == User.Identity.Name).FirstOrDefault() != null)  // 如果有按過
@@ -75,7 +122,29 @@ namespace CCU_Crawler.Controllers
 
                 if (CommentGoodOrBad2 == TenpGoodOrBad) 
                 {
-                    return RedirectToAction("List", new { id = CourseId });
+                    limit = db.Guestbooks.Where(p => p.CourceId == CourseId).ToList().Count();
+                    ViewBag.limit = limit;
+                    limitlist = db.Guestbooks.Where(p => p.CourceId == CourseId).ToList();
+                    commentlist = db.Comments.Where(p => p.CourseId == CourseId).ToList();
+                    //var list = new List<int>();
+                    foreach (var i in limitlist)
+                    {
+                        if (commentlist.Where(x => x.CommentId == i.Id && x.User == User.Identity.Name).FirstOrDefault() != null)
+                        {
+                            var target = commentlist.Where(x => x.CommentId == i.Id && x.User == User.Identity.Name).FirstOrDefault();
+                            if (target.GoodOrBad == 1)
+                                list.Add(1);
+                            else if (target.GoodOrBad == 0)
+                                list.Add(0);
+                        }
+                        else
+                        {
+                            list.Add(2);
+                        }
+                    }
+                    ViewBag.list = list;
+
+                    return View(db.Guestbooks.Where(p => p.CourceId == CourseId).ToList()); //只顯示給該課程的評論
                 }
             }
 
@@ -106,7 +175,29 @@ namespace CCU_Crawler.Controllers
             db.Comments.Add(comment);
             db.SaveChanges();
 
-            return RedirectToAction("List", new { id = CourseId });
+            limit = db.Guestbooks.Where(p => p.CourceId == CourseId).ToList().Count();
+            ViewBag.limit = limit;
+            limitlist = db.Guestbooks.Where(p => p.CourceId == CourseId).ToList();
+            commentlist = db.Comments.Where(p => p.CourseId == CourseId).ToList();
+            //var list = new List<int>();
+            foreach (var i in limitlist)
+            {
+                if (commentlist.Where(x => x.CommentId == i.Id && x.User == User.Identity.Name).FirstOrDefault() != null)
+                {
+                    var target = commentlist.Where(x => x.CommentId == i.Id && x.User == User.Identity.Name).FirstOrDefault();
+                    if (target.GoodOrBad == 1)
+                        list.Add(1);
+                    else if (target.GoodOrBad == 0)
+                        list.Add(0);
+                }
+                else
+                {
+                    list.Add(2);
+                }
+            }
+            ViewBag.list = list;
+
+            return View(db.Guestbooks.Where(p => p.CourceId == CourseId).ToList());
         }
 
         public ActionResult Conplain(int CourseId) //給評論的地方
