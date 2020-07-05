@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -20,6 +21,7 @@ namespace CCU_Crawler.Models
         public int good { get; set; }
         public int bad { get; set; }
 
+        [DisplayName("課堂名稱")]
         public int CourceId { get; set; }
         public DateTime? DateTime { get; set; }
     }

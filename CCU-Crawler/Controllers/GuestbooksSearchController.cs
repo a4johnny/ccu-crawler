@@ -18,6 +18,7 @@ namespace CCU_Crawler.Controllers
         // GET: GuestbooksSearch
         public ActionResult Index(SearchGuestbook searchGuestbook)
         {
+            var list = new List<string>();
             if (searchGuestbook is object)
             {
                 var guestbooks = new List<Guestbook>();
@@ -100,7 +101,15 @@ namespace CCU_Crawler.Controllers
                     ViewData["Group"] = "";
                 }
                 ViewData["OrderType"] = searchGuestbook.OrderType;
-                return PartialView(GuestbooksOrder(guestbooks, searchGuestbook.OrderType));
+                var recall = GuestbooksOrder(guestbooks, searchGuestbook.OrderType);
+                foreach (var i in recall)
+                {
+                    Course course = new Course();
+                    course = db.Courses.Find(i.CourceId);
+                    list.Add(course.Name);
+                }
+                ViewBag.list = list;
+                return PartialView(recall);
             }
             else
             {
@@ -109,7 +118,15 @@ namespace CCU_Crawler.Controllers
                 ViewData["Call"] = "";
                 ViewData["Sign"] = "";
                 ViewData["Group"] = "";
-                return PartialView(GuestbooksOrder(db.Guestbooks.ToList(), searchGuestbook.OrderType));
+                var recall = GuestbooksOrder(db.Guestbooks.ToList(), searchGuestbook.OrderType);
+                foreach (var i in recall)
+                {
+                    Course course = new Course();
+                    course = db.Courses.Find(i.CourceId);
+                    list.Add(course.Name);
+                }
+                ViewBag.list = list;
+                return PartialView(recall);
             }
         }
         public ActionResult Search()

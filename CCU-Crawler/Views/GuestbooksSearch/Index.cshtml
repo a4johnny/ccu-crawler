@@ -2,14 +2,19 @@
 
 @{
     ViewBag.Title = "Index";
+    var list = ViewBag.list;
+    var num = 0;
 }
 
 <table class="table table-bordered table-sm">
     <tr>
-        <th width="200px" style="text-align: center; vertical-align: middle">
+        <th width="180px" style="text-align: center; vertical-align: middle">
             @Html.DisplayNameFor(model => model.DateTime)
         </th>
-        <th style="text-align: center; vertical-align: middle">
+        <th width="300px" style="text-align: center; vertical-align: middle">
+            @Html.DisplayNameFor(model => model.CourceId)
+        </th>
+        <th width="300px" style="text-align: center; vertical-align: middle">
             @Html.DisplayNameFor(model => model.Content)
         </th>
         <th width="90px" style="text-align: center; vertical-align: middle">
@@ -59,9 +64,13 @@
     </tr>
     @foreach (var item in Model)
     {
+        string CourseNmae = list[num];
         <tr>
             <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @Html.ActionLink(CourseNmae, "../Guestbooks/List" ,new { id = item.CourceId }, new { @class = "my-class" })
             </td>
             <td style="text-align: center; vertical-align: middle">
                 @Html.DisplayFor(modelItem => item.Content)
@@ -79,5 +88,6 @@
                 @Html.DisplayFor(modelItem => item.Group)
             </td>
         </tr>
+        num++;
     }
 </table>

@@ -26,7 +26,7 @@ namespace CCU_Crawler.Controllers
                     {
                         var integerDepartmentId = db.Departments.Where(department => department.Name.Contains(searchCourse.DepartmentName)).FirstOrDefault().Id;
                         courses = db.Courses.Where(course => course.DepartmentId == integerDepartmentId).ToList();
-                        Debug.WriteLine(courses.Count);
+                        //Debug.WriteLine(courses.Count);
                     }
                 }
                 else
