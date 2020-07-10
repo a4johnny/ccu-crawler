@@ -19,6 +19,9 @@ namespace CCU_Crawler.Controllers
         public ActionResult Index(SearchGuestbook searchGuestbook)
         {
             var list = new List<string>();
+            List<string> listCall = new List<string>();
+            List<string> listSign = new List<string>();
+            List<string> listGroup = new List<string>();
             if (searchGuestbook is object)
             {
                 var guestbooks = new List<Guestbook>();
@@ -104,11 +107,39 @@ namespace CCU_Crawler.Controllers
                 var recall = GuestbooksOrder(guestbooks, searchGuestbook.OrderType);
                 foreach (var i in recall)
                 {
+                    string[] SplitArray = new string[100];
+                    if (i.Infomation != null)
+                        SplitArray = i.Infomation.Split(' ');
+                    int count = 0;
+                    if (i.Call != null)
+                    {
+                        listCall.Add(SplitArray[count]);
+                        count++;
+                    }
+                    else
+                        listCall.Add(" ");
+
+                    if (i.Sign != null)
+                    {
+                        listSign.Add(SplitArray[count]);
+                        count++;
+                    }
+                    else
+                        listSign.Add(" ");
+
+                    if (i.Group != null)
+                        listGroup.Add(SplitArray[count]);
+                    else
+                        listGroup.Add(" ");
+
                     Course course = new Course();
                     course = db.Courses.Find(i.CourceId);
                     list.Add(course.Name);
                 }
                 ViewBag.list = list;
+                ViewBag.listCall = listCall;
+                ViewBag.listSign = listSign;
+                ViewBag.listGroup = listGroup;
                 return PartialView(recall);
             }
             else
@@ -121,11 +152,37 @@ namespace CCU_Crawler.Controllers
                 var recall = GuestbooksOrder(db.Guestbooks.ToList(), searchGuestbook.OrderType);
                 foreach (var i in recall)
                 {
+                    string[] SplitArray = i.Infomation.Split(' ');
+                    int count = 0;
+                    if (i.Call != null)
+                    {
+                        listCall.Add(SplitArray[count]);
+                        count++;
+                    }
+                    else
+                        listCall.Add(" ");
+
+                    if (i.Sign != null)
+                    {
+                        listSign.Add(SplitArray[count]);
+                        count++;
+                    }
+                    else
+                        listSign.Add(" ");
+
+                    if (i.Group != null)
+                        listGroup.Add(SplitArray[count]);
+                    else
+                        listGroup.Add(" ");
+
                     Course course = new Course();
                     course = db.Courses.Find(i.CourceId);
                     list.Add(course.Name);
                 }
                 ViewBag.list = list;
+                ViewBag.listCall = listCall;
+                ViewBag.listSign = listSign;
+                ViewBag.listGroup = listGroup;
                 return PartialView(recall);
             }
         }
